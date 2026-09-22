@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://aureuserp.com">
+  <a href="https://nuvistechnologies.com.fj/nuviserpx">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-dark.png">
       <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-light.png">
