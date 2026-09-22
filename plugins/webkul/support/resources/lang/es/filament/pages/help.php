@@ -7,7 +7,7 @@ return [
 
     'title'      => 'Ayuda',
     'heading'    => 'Ayuda y recursos',
-    'subheading' => 'Todo lo necesario para aprovechar al máximo AureusERP.',
+    'subheading' => 'Todo lo necesario para aprovechar al máximo Nuvis ERP X.',
 
     'services' => [
         'group' => 'Servicios',
@@ -36,7 +36,7 @@ return [
 
         'extensions' => [
             'title'       => 'Módulos',
-            'description' => 'Explorar complementos oficiales y de la comunidad para ampliar AureusERP con nuevos módulos y funciones.',
+            'description' => 'Explorar complementos oficiales y de la comunidad para ampliar Nuvis ERP X con nuevos módulos y funciones.',
             'button'      => 'Explorar módulos',
         ],
 

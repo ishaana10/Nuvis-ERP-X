@@ -1,9 +1,9 @@
 <p align="center">
-  <a href="https://aureuserp.com">
+  <a href="https://nuvistechnologies.com.fj/nuviserpx">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-dark.png">
       <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-light.png">
-      <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-light.png" alt="AureusERP logo">
+      <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-light.png" alt="Nuvis ERP X logo">
     </picture>
   </a>  
 </p>
@@ -14,7 +14,7 @@
 <a href="https://packagist.org/packages/aureuserp/aureuserp"><img src="https://poser.pugx.org/aureuserp/aureuserp/license.svg" alt="License"></a>
 </p>
 
-<h1 align="center">Aureus ERP</h1>
+<h1 align="center">Nuvis ERP X</h1>
 
 <p align="center">
   <strong>Open-Source Enterprise Resource Planning for Modern Businesses</strong>
@@ -30,7 +30,7 @@
 
 1. [Introduction](#-introduction)
 2. [Key Features](#-key-features)
-3. [Why Choose Aureus ERP?](#-why-choose-aureus-erp)
+3. [Why Choose Nuvis ERP X?](#-why-choose-nuvis-erp-x)
 4. [Requirements](#-requirements)
 5. [Quick Start](#-quick-start)
 6. [Plugin System](#-plugin-system)
@@ -44,14 +44,14 @@
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/introduction.png" alt="AureusERP Introduction" width="100%">
+  <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/introduction.png" alt="Nuvis ERP X Introduction" width="100%">
 </p>
 
 ## 🚀 Introduction
 
-Aureus ERP is a comprehensive, open-source Enterprise Resource Planning (ERP) solution designed for Small and Medium Enterprises (SMEs) and large-scale organizations. Built on **[Laravel 13](https://laravel.com)**, the most popular PHP framework, and **[FilamentPHP 5](https://filamentphp.com)**, a cutting-edge admin panel framework, Aureus ERP offers an extensible and developer-friendly platform for managing every aspect of your business operations.
+Nuvis ERP X is a comprehensive, open-source Enterprise Resource Planning (ERP) solution designed for Small and Medium Enterprises (SMEs) and large-scale organizations. Built on **[Laravel 13](https://laravel.com)**, the most popular PHP framework, and **[FilamentPHP 5](https://filamentphp.com)**, a cutting-edge admin panel framework, Nuvis ERP X offers an extensible and developer-friendly platform for managing every aspect of your business operations.
 
-Whether you're managing accounting, inventory, HR, CRM, or projects, Aureus ERP provides a modular approach that grows with your business.
+Whether you're managing accounting, inventory, HR, CRM, or projects, Nuvis ERP X provides a modular approach that grows with your business.
 
 ---
 
@@ -122,7 +122,7 @@ Whether you're managing accounting, inventory, HR, CRM, or projects, Aureus ERP 
 
 ---
 
-## 🎯 Why Choose Aureus ERP?
+## 🎯 Why Choose Nuvis ERP X?
 
 | Feature | Benefit |
 |---------|---------|
@@ -159,7 +159,7 @@ Ensure your development environment meets the following requirements:
 
 ## ⚡ Quick Start
 
-Get Aureus ERP up and running in just 4 simple steps:
+Get Nuvis ERP X up and running in just 4 simple steps:
 
 ### Step 1: Clone the Repository
 
@@ -198,13 +198,13 @@ Visit `http://localhost:8000` and log in with your admin credentials!
 
 ---
 
-## ☁️ AureusERP Cloud Hosting
+## ☁️ Nuvis ERP X Cloud Hosting
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/cloud-hosting.png" alt="AureusERP Cloud Hosting" width="100%">
+  <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/cloud-hosting.png" alt="Nuvis ERP X Cloud Hosting" width="100%">
 </p>
 
-[AureusERP Cloud Hosting](https://aureuserp.com/cloud-hosting/) is a fully managed hosting solution where our team sets up, secures, and configures your AureusERP on reliable infrastructure.
+[Nuvis ERP X Cloud Hosting](https://nuvistechnologies.com.fj/nuviserpx/cloud-hosting/) is a fully managed hosting solution where our team sets up, secures, and configures your Nuvis ERP X on reliable infrastructure.
 
 Get a ready-to-use ERP on your own domain, without manual installation or infrastructure complexity, and focus on growing your business while we handle the technology.
 
@@ -213,7 +213,7 @@ Get a ready-to-use ERP on your own domain, without manual installation or infras
 
 ## 🧩 Plugin System
 
-AureusERP features a powerful modular plugin system that allows you to customize your ERP installation based on your business needs. Choose only the modules you need to keep your system lean and efficient.
+Nuvis ERP X features a powerful modular plugin system that allows you to customize your ERP installation based on your business needs. Choose only the modules you need to keep your system lean and efficient.
 
 ### 📦 Core Plugins (System Plugins)
 
@@ -330,7 +330,7 @@ Some plugins require other plugins to function properly. The installation system
 
 ## 🎨 Customization
 
-AureusERP is designed to be highly customizable, allowing you to tailor the system to your specific business needs:
+Nuvis ERP X is designed to be highly customizable, allowing you to tailor the system to your specific business needs:
 
 ### Plugin Customization
 - 🔹 Install only the plugins you need
@@ -400,7 +400,7 @@ We welcome contributions from the community! Whether you're fixing bugs, adding 
 
 ## 📄 License
 
-AureusERP is truly open-source ERP framework that will always be **free** under the [MIT License](LICENSE).
+Nuvis ERP X is truly open-source ERP framework that will always be **free** under the [MIT License](LICENSE).
 
 ### What This Means
 - ✅ Free to use for commercial and personal projects
@@ -412,13 +412,13 @@ AureusERP is truly open-source ERP framework that will always be **free** under 
 
 ## 🔒 Security
 
-Security is a top priority for AureusERP. We take all security vulnerabilities seriously.
+Security is a top priority for Nuvis ERP X. We take all security vulnerabilities seriously.
 
 ### Reporting Security Vulnerabilities
 
 **⚠️ Please DO NOT disclose security vulnerabilities publicly.**
 
-If you discover a security vulnerability in AureusERP, please report it responsibly:
+If you discover a security vulnerability in Nuvis ERP X, please report it responsibly:
 
 📧 **Email:** support@webkul.com
 
@@ -434,11 +434,11 @@ We will acknowledge your email within 48 hours and provide a detailed response w
 
 ## 💬 Support & Community
 
-Need help or want to connect with other AureusERP users?
+Need help or want to connect with other Nuvis ERP X users?
 
 ### 📚 Documentation
-- 📖 **Developer Documentation:** [devdocs.aureuserp.com](https://devdocs.aureuserp.com/) - Technical guides, API references, and development resources
-- 📘 **User Guide:** [docs.aureuserp.com](https://docs.aureuserp.com/) - Step-by-step tutorials and user manuals
+- 📖 **Developer Documentation:** [devdocs.nuvistechnologies.com.fj/nuviserpx](https://devdocs.nuvistechnologies.com.fj/nuviserpx/) - Technical guides, API references, and development resources
+- 📘 **User Guide:** [docs.nuvistechnologies.com.fj/nuviserpx](https://docs.nuvistechnologies.com.fj/nuviserpx/) - Step-by-step tutorials and user manuals
 
 ### 🤝 Get Support
 - 💬 **Community Forum:** [Coming Soon] - Connect with other users and share experiences

@@ -20,7 +20,7 @@ class ImageCacheController
      *
      * @var string
      */
-    const AUREUS_LOGO = 'https://updates.aureuserp.com/aureus.png';
+    const AUREUS_LOGO = 'https://updates.nuvistechnologies.com.fj/nuviserpx/aureus.png';
 
     /**
      * Get HTTP response of template applied image file

@@ -1,9 +1,9 @@
 {
     "name": "webkul/plugin-manager",
-    "description": "Plugin Manager for Aureus ERP",
+    "description": "Plugin Manager for Nuvis ERP X",
     "authors": [
         {
-            "name": "Aureus ERP",
+            "name": "Nuvis ERP X",
             "email": "support@aureuserp.in"
         }
     ],
