@@ -1,7 +1,7 @@
 # Nuvis ERP X — Production Docker Image
 
 A single-container, production-ready Docker image for
-[Nuvis ERP X](https://github.com/aureuserp/aureuserp). It bundles the application,
+[Nuvis ERP X](https://github.com/ishaana10/Nuvis-ERP-X). It bundles the application,
 MySQL, PHP-FPM, Nginx and Supervisor — everything needed to run the ERP with one
 `docker run`.
 
@@ -91,7 +91,7 @@ The build context is the `docker/production/` directory. Build from the
 repository root:
 
 ```bash
-# default — clones aureuserp/aureuserp @ master
+# default — clones ishaana10/Nuvis-ERP-X @ master
 docker build -t aureuserp:latest docker/production
 
 # a specific branch or tag
@@ -108,7 +108,7 @@ assets, and installs the ERP — it takes several minutes.
 | Argument | Default | Description |
 |---|---|---|
 | `APP_REF` | `master` | Branch or tag of Nuvis ERP X to clone |
-| `REPO_URL` | `https://github.com/aureuserp/aureuserp.git` | Repository to clone |
+| `REPO_URL` | `https://github.com/ishaana10/Nuvis-ERP-X.git` | Repository to clone |
 | `PHP_VERSION` | `8.4` | PHP version |
 | `NODE_VERSION` | `22` | Node.js version (used only to compile assets) |
 | `ADMIN_NAME` | `Administrator` | Admin account name created at install |
@@ -375,7 +375,7 @@ target path to change one.
 
 ## Support
 
-- Issues: <https://github.com/aureuserp/aureuserp/issues>
+- Issues: <https://github.com/ishaana10/Nuvis-ERP-X/issues>
 - Forum: <https://forums.nuvistechnologies.com.fj/nuviserpx>
 - Docs: <https://devdocs.nuvistechnologies.com.fj/nuviserpx>
-- Source: <https://github.com/aureuserp/aureuserp>
+- Source: <https://github.com/ishaana10/Nuvis-ERP-X>

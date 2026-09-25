@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-<a href="https://packagist.org/packages/aureuserp/aureuserp"><img src="https://poser.pugx.org/aureuserp/aureuserp/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/aureuserp/aureuserp"><img src="https://poser.pugx.org/aureuserp/aureuserp/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/aureuserp/aureuserp"><img src="https://poser.pugx.org/aureuserp/aureuserp/license.svg" alt="License"></a>
+<a href="https://packagist.org/packages/ishaana10/Nuvis-ERP-X"><img src="https://poser.pugx.org/ishaana10/Nuvis-ERP-X/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/ishaana10/Nuvis-ERP-X"><img src="https://poser.pugx.org/ishaana10/Nuvis-ERP-X/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/ishaana10/Nuvis-ERP-X"><img src="https://poser.pugx.org/ishaana10/Nuvis-ERP-X/license.svg" alt="License"></a>
 </p>
 
 <h1 align="center">Nuvis ERP X</h1>
@@ -164,7 +164,7 @@ Get Nuvis ERP X up and running in just 4 simple steps:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/aureuserp/aureuserp.git
+git clone https://github.com/ishaana10/Nuvis-ERP-X.git
 cd aureuserp
 ```
 
@@ -362,7 +362,7 @@ We welcome contributions from the community! Whether you're fixing bugs, adding 
 
 1. **Fork the Repository**
    ```bash
-   git clone https://github.com/aureuserp/aureuserp.git
+   git clone https://github.com/ishaana10/Nuvis-ERP-X.git
    ```
 
 2. **Create a Feature Branch**
@@ -442,7 +442,7 @@ Need help or want to connect with other Nuvis ERP X users?
 
 ### 🤝 Get Support
 - 💬 **Community Forum:** [Coming Soon] - Connect with other users and share experiences
-- 🐛 **Issue Tracker:** [GitHub Issues](https://github.com/aureuserp/aureuserp/issues) - Report bugs and request features
+- 🐛 **Issue Tracker:** [GitHub Issues](https://github.com/ishaana10/Nuvis-ERP-X/issues) - Report bugs and request features
 - 📧 **Email Support:** support@webkul.com - Direct support from the team
 
 ### 🔔 Stay Updated

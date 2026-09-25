@@ -620,7 +620,7 @@ class InstallERP extends Command
             return;
         }
 
-        $repoUrl = 'https://github.com/aureuserp/aureuserp';
+        $repoUrl = 'https://github.com/ishaana10/Nuvis-ERP-X';
 
         Package::openInBrowser($repoUrl);
     }

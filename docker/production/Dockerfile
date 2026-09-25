@@ -3,7 +3,7 @@ FROM ubuntu:24.04
 ARG APP_REF=master
 ARG PHP_VERSION=8.4
 ARG NODE_VERSION=22
-ARG REPO_URL=https://github.com/aureuserp/aureuserp.git
+ARG REPO_URL=https://github.com/ishaana10/Nuvis-ERP-X.git
 
 ARG ADMIN_NAME=Administrator
 ARG ADMIN_EMAIL=admin@example.com
