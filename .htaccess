@@ -1,7 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Direct requests to the public directory
+    # Deny access to sensitive files
+    RewriteRule ^(\.env|\.git) - [F,L]
+
+    # Handle Subdirectory Rewrite
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
