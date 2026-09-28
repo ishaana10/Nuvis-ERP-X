@@ -174,7 +174,7 @@ class InstallERP extends Command
         $filePath = storage_path('installed');
 
         $content = sprintf(
-            "AureusERP is successfully installed.\nInstalled at: %s",
+            "Nuvis ERP X is successfully installed.\nInstalled at: %s",
             now()->toDateTimeString(),
         );
 
@@ -620,7 +620,7 @@ class InstallERP extends Command
             return;
         }
 
-        $repoUrl = 'https://github.com/aureuserp/aureuserp';
+        $repoUrl = 'https://github.com/ishaana10/Nuvis-ERP-X';
 
         Package::openInBrowser($repoUrl);
     }

@@ -14,8 +14,8 @@ return new class extends SettingsMigration
         $this->migrator->add('branding.info_color', $this->defaultHex(Color::Blue));
         $this->migrator->add('branding.success_color', $this->defaultHex(Color::Green));
         $this->migrator->add('branding.warning_color', $this->defaultHex(Color::Amber));
-        $this->migrator->add('branding.light_logo', 'images/logo.svg');
-        $this->migrator->add('branding.dark_logo', 'images/logo.svg');
+        $this->migrator->add('branding.light_logo', 'images/logo.jpeg');
+        $this->migrator->add('branding.dark_logo', 'images/logo.jpeg');
         $this->migrator->add('branding.favicon', 'images/favicon.ico');
         $this->migrator->add('branding.logo_height', '2rem');
     }

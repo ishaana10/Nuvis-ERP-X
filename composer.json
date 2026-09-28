@@ -1,5 +1,5 @@
 {
-    "name": "aureuserp/aureuserp",
+    "name": "ishaana10/Nuvis-ERP-X",
     "type": "project",
     "description": "Open Source ERP Solution built on Laravel for Small and Medium Enterprises (SMEs) and large-scale enterprises.",
     "keywords": [
@@ -104,9 +104,9 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "support": {
-        "issues": "https://github.com/aureuserp/aureuserp/issues",
-        "forum": "https://forums.aureuserp.com",
-        "source": "https://github.com/aureuserp/aureuserp",
-        "docs": "https://devdocs.aureuserp.com"
+        "issues": "https://github.com/ishaana10/Nuvis-ERP-X/issues",
+        "forum": "https://forums.nuvistechnologies.com.fj/nuviserpx",
+        "source": "https://github.com/ishaana10/Nuvis-ERP-X",
+        "docs": "https://devdocs.nuvistechnologies.com.fj/nuviserpx"
     }
 }
