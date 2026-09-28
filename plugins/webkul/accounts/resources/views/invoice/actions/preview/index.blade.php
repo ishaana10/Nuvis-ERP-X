@@ -142,19 +142,32 @@
             <!-- Company Address -->
             <div class="company-info">
                 @php
-                    $logoUrl = null;
+                    $logoDataUri = null;
                     if ($record->company->logo) {
-                        $logoUrl = Storage::url($record->company->logo);
+                        if (Storage::exists($record->company->logo)) {
+                            $mime = Storage::mimeType($record->company->logo) ?? 'image/png';
+                            $content = base64_encode(Storage::get($record->company->logo));
+                            $logoDataUri = "data:{$mime};base64,{$content}";
+                        } else {
+                            $logoDataUri = Storage::url($record->company->logo);
+                        }
                     } else {
                         $lightLogo = settings(\Webkul\Support\Settings\BrandSettings::class)->light_logo;
                         if ($lightLogo) {
-                            $logoUrl = str_starts_with($lightLogo, 'http') ? $lightLogo : asset($lightLogo);
+                            $publicPath = public_path($lightLogo);
+                            if (file_exists($publicPath)) {
+                                $mime = mime_content_type($publicPath) ?: 'image/png';
+                                $content = base64_encode(file_get_contents($publicPath));
+                                $logoDataUri = "data:{$mime};base64,{$content}";
+                            } else {
+                                $logoDataUri = str_starts_with($lightLogo, 'http') ? $lightLogo : asset($lightLogo);
+                            }
                         }
                     }
                 @endphp
-                @if ($logoUrl)
+                @if ($logoDataUri)
                     <div style="margin-bottom: 10px;">
-                        <img src="{{ $logoUrl }}" alt="{{ $record->company->name }}" style="max-height: 80px; max-width: 200px; object-fit: contain;">
+                        <img src="{{ $logoDataUri }}" alt="{{ $record->company->name }}" style="max-height: 80px; max-width: 200px; object-fit: contain;">
                     </div>
                 @endif
                 <div style="font-size: 28px; color: #1a4587; margin-bottom: 10px;">{{ $record->company->name }}</div>
