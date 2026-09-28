@@ -2,13 +2,13 @@
 
 namespace Webkul\Vms\Filament\Resources;
 
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\KeyValue;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\KeyValue;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Textarea;
+use Filament\Schemas\Components\TextInput;
+use Filament\Schemas\Schema;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -22,18 +22,18 @@ class VmsFiscalInvoiceResource extends Resource
 {
     protected static ?string $model = VmsFiscalInvoice::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-check';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-document-check';
 
-    protected static ?string $navigationGroup = 'VAT Monitoring System (VMS)';
+    protected static string|\UnitEnum|null $navigationGroup = 'VAT Monitoring System (VMS)';
 
     protected static ?string $navigationLabel = 'Fiscal Invoices';
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make('Fiscalization Overview')
                     ->schema([
                         Grid::make(3)->schema([

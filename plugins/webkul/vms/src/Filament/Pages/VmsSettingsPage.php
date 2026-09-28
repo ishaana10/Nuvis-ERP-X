@@ -3,28 +3,28 @@
 namespace Webkul\Vms\Filament\Pages;
 
 use Filament\Actions\Action;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Select;
+use Filament\Schemas\Components\TextInput;
+use Filament\Schemas\Components\Toggle;
+use Filament\Schemas\Schema;
 use Webkul\Vms\Models\VmsSetting;
 use Webkul\Vms\Services\VmsService;
 
 class VmsSettingsPage extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
 
-    protected static ?string $navigationGroup = 'VAT Monitoring System (VMS)';
+    protected static string|\UnitEnum|null $navigationGroup = 'VAT Monitoring System (VMS)';
 
     protected static ?string $navigationLabel = 'VMS Settings';
 
     protected static ?int $navigationSort = 1;
 
-    protected static string $view = 'vms::filament.pages.vms-settings';
+    protected string $view = 'vms::filament.pages.vms-settings';
 
     public ?array $data = [];
 
@@ -47,10 +47,10 @@ class VmsSettingsPage extends Page
         }
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make('FRCS EFD & VMS Credentials')
                     ->description('Configure your Fiji Revenue & Customs Service (FRCS) Electronic Fiscal Device details.')
                     ->schema([

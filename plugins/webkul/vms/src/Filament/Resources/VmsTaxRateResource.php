@@ -2,12 +2,12 @@
 
 namespace Webkul\Vms\Filament\Resources;
 
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\TextInput;
+use Filament\Schemas\Components\Toggle;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Webkul\Vms\Filament\Resources\VmsTaxRateResource\Pages\ListVmsTaxRates;
@@ -17,18 +17,18 @@ class VmsTaxRateResource extends Resource
 {
     protected static ?string $model = VmsTaxRate::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calculator';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-calculator';
 
-    protected static ?string $navigationGroup = 'VAT Monitoring System (VMS)';
+    protected static string|\UnitEnum|null $navigationGroup = 'VAT Monitoring System (VMS)';
 
     protected static ?string $navigationLabel = 'Tax Rates';
 
     protected static ?int $navigationSort = 3;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make('Tax Rate Details')
                     ->schema([
                         Grid::make(2)->schema([
