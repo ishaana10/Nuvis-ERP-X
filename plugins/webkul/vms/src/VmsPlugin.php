@@ -27,22 +27,14 @@ class VmsPlugin implements Plugin
         $panel
             ->when($panel->getId() == 'admin', function (Panel $panel) {
                 $panel
-                    ->discoverResources(
-                        in: __DIR__.'/Filament/Resources',
-                        for: 'Webkul\\Vms\\Filament\\Resources'
-                    )
-                    ->discoverPages(
-                        in: __DIR__.'/Filament/Pages',
-                        for: 'Webkul\\Vms\\Filament\\Pages'
-                    )
-                    ->discoverClusters(
-                        in: __DIR__.'/Filament/Clusters',
-                        for: 'Webkul\\Vms\\Filament\\Clusters'
-                    )
-                    ->discoverWidgets(
-                        in: __DIR__.'/Filament/Widgets',
-                        for: 'Webkul\\Vms\\Filament\\Widgets'
-                    );
+                    ->resources([
+                        \Webkul\Vms\Filament\Resources\VmsFiscalInvoiceResource::class,
+                        \Webkul\Vms\Filament\Resources\VmsTaxRateResource::class,
+                        \Webkul\Vms\Filament\Resources\VmsAuditLogResource::class,
+                    ])
+                    ->pages([
+                        \Webkul\Vms\Filament\Pages\VmsSettingsPage::class,
+                    ]);
             });
     }
 
