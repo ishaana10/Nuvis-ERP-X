@@ -18,6 +18,7 @@ class VmsServiceProvider extends PackageServiceProvider
             ->hasTranslations()
             ->hasMigrations([
                 '2026_04_01_000001_create_vms_tables',
+                '2026_04_01_000002_register_vms_plugin',
             ])
             ->runsMigrations()
             ->hasDependencies([
