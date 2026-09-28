@@ -34,6 +34,7 @@ class VmsPlugin implements Plugin
                     ])
                     ->pages([
                         \Webkul\Vms\Filament\Pages\VmsSettingsPage::class,
+                        \Webkul\Vms\Filament\Clusters\Settings\Pages\ManageVms::class,
                     ]);
             });
     }
