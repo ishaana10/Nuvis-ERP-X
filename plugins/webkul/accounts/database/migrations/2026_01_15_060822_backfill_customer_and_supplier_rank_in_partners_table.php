@@ -13,21 +13,21 @@ return new class extends Migration
         // Uses a correlated subquery (rather than MySQL's UPDATE...JOIN...SET) so the
         // same statement is portable across MySQL and PostgreSQL.
         DB::statement("
-            UPDATE partners_partners p
+            UPDATE partners_partners
             SET customer_rank = COALESCE((
                 SELECT COUNT(*)
                 FROM accounts_account_moves m
-                WHERE m.partner_id = p.id
+                WHERE m.partner_id = partners_partners.id
                   AND m.move_type IN ('out_invoice', 'out_refund')
             ), 0)
         ");
 
         DB::statement("
-            UPDATE partners_partners p
+            UPDATE partners_partners
             SET supplier_rank = COALESCE((
                 SELECT COUNT(*)
                 FROM accounts_account_moves m
-                WHERE m.partner_id = p.id
+                WHERE m.partner_id = partners_partners.id
                   AND m.move_type IN ('in_invoice', 'in_refund')
             ), 0)
         ");

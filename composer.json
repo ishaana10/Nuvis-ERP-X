@@ -1,5 +1,5 @@
 {
-    "name": "ishaana10/Nuvis-ERP-X",
+    "name": "ishaana10/nuvis-erp-x",
     "type": "project",
     "description": "Open Source ERP Solution built on Laravel for Small and Medium Enterprises (SMEs) and large-scale enterprises.",
     "keywords": [
@@ -51,7 +51,8 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Webkul\\Vms\\": "plugins/webkul/vms/src/"
         }
     },
     "autoload-dev": {
