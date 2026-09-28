@@ -2,17 +2,16 @@
 
 namespace Webkul\Vms\Filament\Clusters\Settings\Pages;
 
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Select;
+use Filament\Schemas\Components\TextInput;
+use Filament\Schemas\Components\Toggle;
+use Filament\Schemas\Schema;
 use Webkul\Support\Filament\Clusters\Settings;
 use Webkul\Vms\Models\VmsSetting;
-use Webkul\Vms\Services\VmsService;
 
 class ManageVms extends Page
 {
@@ -26,7 +25,7 @@ class ManageVms extends Page
 
     protected static ?string $cluster = Settings::class;
 
-    protected static string $view = 'vms::filament.pages.vms-settings';
+    protected string $view = 'vms::filament.pages.vms-settings';
 
     public ?array $data = [];
 
@@ -54,10 +53,10 @@ class ManageVms extends Page
         return 'Manage VMS';
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make('FRCS EFD & VMS Credentials')
                     ->description('Configure your Fiji Revenue & Customs Service (FRCS) Electronic Fiscal Device details.')
                     ->schema([

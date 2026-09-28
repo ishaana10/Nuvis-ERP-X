@@ -2,11 +2,11 @@
 
 namespace Webkul\Vms\Filament\Resources;
 
-use Filament\Forms\Components\KeyValue;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\KeyValue;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\TextInput;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Webkul\Vms\Filament\Resources\VmsAuditLogResource\Pages\ListVmsAuditLogs;
@@ -16,18 +16,18 @@ class VmsAuditLogResource extends Resource
 {
     protected static ?string $model = VmsAuditLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-list-bullet';
 
-    protected static ?string $navigationGroup = 'VAT Monitoring System (VMS)';
+    protected static string|\UnitEnum|null $navigationGroup = 'VAT Monitoring System (VMS)';
 
     protected static ?string $navigationLabel = 'Audit Logs';
 
     protected static ?int $navigationSort = 4;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make('Audit Record')
                     ->schema([
                         TextInput::make('secure_component_uid')->disabled(),
