@@ -1,0 +1,30 @@
+{
+    "name": "webkul/vms",
+    "description": "VAT Monitoring System (VMS) EFD and Fiscalization Module for FRCS Compliance",
+    "authors": [
+        {
+            "name": "Nuvis ERP X",
+            "email": "support@aureuserp.in"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webkul\\Vms\\VmsServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Webkul\\Vms\\": "src/",
+            "Webkul\\Vms\\Database\\Factories\\": "database/factories/",
+            "Webkul\\Vms\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webkul\\Vms\\Tests\\": "tests/"
+        }
+    }
+}

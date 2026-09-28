@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('partners_partners', function (Blueprint $table) {
-            $table->dropForeign('fk_partners_account_position');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('fk_partners_account_position');
 
-            $table->foreign('property_account_position_id', 'fk_partners_fiscal_position')
-                ->references('id')
-                ->on('accounts_fiscal_positions')
-                ->nullOnDelete();
+                $table->foreign('property_account_position_id', 'fk_partners_fiscal_position')
+                    ->references('id')
+                    ->on('accounts_fiscal_positions')
+                    ->nullOnDelete();
+            }
         });
     }
 

@@ -44,6 +44,10 @@ return new class extends Migration
 
     private function dropForeignKeysOnBankAccountId(): void
     {
+        if (DB::getDriverName() === 'sqlite') {
+            return;
+        }
+
         foreach ($this->foreignKeysOnBankAccountId() as $foreignKey) {
             Schema::table('accounts_journals', function (Blueprint $table) use ($foreignKey) {
                 $table->dropForeign($foreignKey['name']);

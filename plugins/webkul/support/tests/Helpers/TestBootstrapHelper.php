@@ -51,7 +51,11 @@ class TestBootstrapHelper
                 : DB::table('plugins')->where('name', $pluginName)->where('is_installed', true)->exists();
 
             if (! $isInstalled) {
-                Artisan::call("{$pluginName}:install", ['--no-interaction' => true]);
+                try {
+                    Artisan::call("{$pluginName}:install", ['--no-interaction' => true]);
+                } catch (\Symfony\Component\Console\Exception\CommandNotFoundException $e) {
+                    Artisan::call('migrate', ['--path' => "plugins/webkul/{$pluginName}/database/migrations", '--force' => true]);
+                }
             }
 
             foreach (static::$pluginTables as $candidate => $candidateTable) {
