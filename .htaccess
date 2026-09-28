@@ -1,11 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /nuviserpx/
 
-    # Prevent access to sensitive dotfiles (.env, .git)
+    # Deny access to sensitive files
     RewriteRule ^(\.env|\.git) - [F,L]
 
-    # Send requests to the public subfolder
-    RewriteCond %{REQUEST_URI} !^/nuviserpx/public/
+    # Handle Subdirectory / Root Rewrite to public directory
+    RewriteCond %{REQUEST_URI} !/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
