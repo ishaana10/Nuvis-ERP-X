@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -20,7 +21,7 @@ return new class extends Migration
                     'latest_version' => '1.0.0',
                     'license' => 'MIT',
                     'is_active' => true,
-                    'is_installed' => true,
+                    'is_installed' => false,
                     'updated_at' => now(),
                     'created_at' => now(),
                 ]
