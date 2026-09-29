@@ -31,7 +31,7 @@ class VmsServiceProvider extends PackageServiceProvider
                     ->runsSeeders();
             })
             ->hasUninstallCommand(function (UninstallCommand $command) {})
-            ->icon('heroicon-o-shield-check');
+            ->icon('vms');
     }
 
     public function packageBooted(): void
