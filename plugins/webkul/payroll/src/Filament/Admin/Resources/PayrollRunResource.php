@@ -26,7 +26,10 @@ class PayrollRunResource extends Resource
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-play-circle';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Payroll';
+    public static function getNavigationGroup(): string|\UnitEnum
+    {
+        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+    }
 
     protected static ?int $navigationSort = 5;
 

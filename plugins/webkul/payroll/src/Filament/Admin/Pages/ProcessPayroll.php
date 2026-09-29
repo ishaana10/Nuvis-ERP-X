@@ -20,7 +20,10 @@ class ProcessPayroll extends Page implements HasForms
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-cpu-chip';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Payroll';
+    public static function getNavigationGroup(): string|\UnitEnum
+    {
+        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+    }
 
     protected static ?string $title = 'Process Payroll';
 

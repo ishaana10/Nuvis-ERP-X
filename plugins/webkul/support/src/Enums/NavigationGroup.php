@@ -41,6 +41,8 @@ enum NavigationGroup: string implements HasIcon, HasLabel
 
     case Setting = 'setting';
 
+    case Payroll = 'payroll';
+
     case Help = 'help';
 
     public function getLabel(): string
@@ -66,6 +68,7 @@ enum NavigationGroup: string implements HasIcon, HasLabel
             self::Recruitment   => 'icon-recruitments',
             self::Website       => 'icon-website',
             self::Barcode       => 'icon-barcode',
+            self::Payroll       => 'payroll',
             self::Plugin        => 'icon-plugin',
             self::Setting       => 'icon-settings',
             self::Help          => 'icon-help',
