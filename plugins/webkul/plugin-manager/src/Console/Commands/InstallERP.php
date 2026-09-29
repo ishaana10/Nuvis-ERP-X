@@ -489,6 +489,14 @@ class InstallERP extends Command
 
         $defaultCompany = Company::first();
 
+        if (! $defaultCompany) {
+            $currency = Currency::resolveDefault() ?? Currency::first();
+            $defaultCompany = Company::create([
+                'name' => 'My Company',
+                'currency_id' => $currency?->id,
+            ]);
+        }
+
         $userModel = app(Utils::getAuthProviderFQCN());
 
         $adminData = $this->getAdminCredentials($userModel);

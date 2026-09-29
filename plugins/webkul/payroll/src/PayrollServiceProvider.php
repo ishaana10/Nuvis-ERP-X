@@ -20,14 +20,14 @@ class PayrollServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasTranslations()
             ->hasMigrations([
-                '2026_01_01_000001_create_payroll_structures_table',
-                '2026_01_01_000002_create_salary_rules_table',
-                '2026_01_01_000003_create_employee_contracts_table',
-                '2026_01_01_000004_create_payroll_periods_table',
-                '2026_01_01_000005_create_payroll_runs_table',
-                '2026_01_01_000006_create_payslips_table',
-                '2026_01_01_000007_create_payslip_lines_table',
-                '2026_01_01_000008_create_payroll_contribution_registers_table',
+                '2026_01_01_000001_create_payroll_contribution_registers_table',
+                '2026_01_01_000002_create_payroll_structures_table',
+                '2026_01_01_000003_create_salary_rules_table',
+                '2026_01_01_000004_create_employee_contracts_table',
+                '2026_01_01_000005_create_payroll_periods_table',
+                '2026_01_01_000006_create_payroll_runs_table',
+                '2026_01_01_000007_create_payslips_table',
+                '2026_01_01_000008_create_payslip_lines_table',
             ])
             ->runsMigrations()
             ->hasSettings([
