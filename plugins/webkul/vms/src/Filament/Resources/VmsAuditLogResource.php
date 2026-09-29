@@ -3,9 +3,9 @@
 namespace Webkul\Vms\Filament\Resources;
 
 use Filament\Forms\Components\KeyValue;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
