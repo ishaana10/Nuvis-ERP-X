@@ -13,7 +13,9 @@ class ProductCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('products_categories')->delete();
+        if (DB::table('products_categories')->exists()) {
+            return;
+        }
 
         $user = User::first();
 
