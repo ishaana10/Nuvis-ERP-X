@@ -20,5 +20,6 @@ return [
         'setting'       => 'Settings',
         'help'          => 'Help',
         'barcode'       => 'Barcode',
+        'payroll'       => 'Nuvis Payroll',
     ],
 ];

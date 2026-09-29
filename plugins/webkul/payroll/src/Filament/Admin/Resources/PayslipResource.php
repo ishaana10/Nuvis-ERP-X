@@ -30,7 +30,10 @@ class PayslipResource extends Resource
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Payroll';
+    public static function getNavigationGroup(): string|\UnitEnum
+    {
+        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+    }
 
     protected static ?int $navigationSort = 6;
 
