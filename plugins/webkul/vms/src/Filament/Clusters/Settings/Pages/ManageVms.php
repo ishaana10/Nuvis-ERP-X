@@ -8,13 +8,12 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
-use Filament\Pages\SettingsPage;
+use Filament\Pages\Page;
 use Filament\Schemas\Schema;
 use Webkul\Support\Filament\Clusters\Settings;
 use Webkul\Vms\Models\VmsSetting;
-use Webkul\Vms\Settings\VmsSettings;
 
-class ManageVms extends SettingsPage
+class ManageVms extends Page
 {
     protected static ?string $slug = 'vms/manage-vms';
 
@@ -26,7 +25,41 @@ class ManageVms extends SettingsPage
 
     protected static ?string $cluster = Settings::class;
 
-    protected static string $settings = VmsSettings::class;
+    protected string $view = 'vms::filament.pages.vms-settings';
+
+    public ?array $data = [];
+
+    public function mount(): void
+    {
+        if (! \Illuminate\Support\Facades\Schema::hasTable('vms_settings')) {
+            $this->form->fill([
+                'company_id' => current_company_id(),
+                'pos_number' => 'POS-001/1.0',
+                'environment' => 'sandbox',
+                'sdc_type' => 'V-SDC',
+                'api_url' => 'https://tap.sandbox.vms.frcs.org.fj',
+                'is_active' => true,
+            ]);
+
+            return;
+        }
+
+        $setting = VmsSetting::where('company_id', current_company_id())->first()
+            ?? VmsSetting::first();
+
+        if ($setting) {
+            $this->form->fill($setting->toArray());
+        } else {
+            $this->form->fill([
+                'company_id' => current_company_id(),
+                'pos_number' => 'POS-001/1.0',
+                'environment' => 'sandbox',
+                'sdc_type' => 'V-SDC',
+                'api_url' => 'https://tap.sandbox.vms.frcs.org.fj',
+                'is_active' => true,
+            ]);
+        }
+    }
 
     public static function getNavigationLabel(): string
     {
@@ -97,6 +130,22 @@ class ManageVms extends SettingsPage
                         ]),
                     ]),
             ])
-        ;
+            ->statePath('data');
+    }
+
+    public function save(): void
+    {
+        $data = $this->form->getState();
+        $data['company_id'] = current_company_id();
+
+        VmsSetting::updateOrCreate(
+            ['company_id' => current_company_id()],
+            $data
+        );
+
+        Notification::make()
+            ->title('VMS Settings saved successfully.')
+            ->success()
+            ->send();
     }
 }
