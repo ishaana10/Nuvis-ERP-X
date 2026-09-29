@@ -8,15 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('payroll_contribution_registers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('partner_id')->nullable()->constrained('partners_partners')->nullOnDelete();
-            $table->foreignId('company_id')->nullable()->constrained('companies')->nullOnDelete();
-            $table->text('note')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (! Schema::hasTable('payroll_contribution_registers')) {
+            Schema::create('payroll_contribution_registers', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->foreignId('partner_id')->nullable()->constrained('partners_partners')->nullOnDelete();
+                $table->foreignId('company_id')->nullable()->constrained('companies')->nullOnDelete();
+                $table->text('note')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     public function down(): void
