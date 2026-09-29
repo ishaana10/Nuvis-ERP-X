@@ -16,11 +16,12 @@ class AccountTagSeeder extends Seeder
         DB::table('accounts_account_tags')->delete();
 
         $user = User::first();
+        $countryId = \Webkul\Support\Models\Country::first()?->id;
 
         $accountTags = [
             [
                 'color'         => '#FF0000',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Operating Activities',
@@ -30,7 +31,7 @@ class AccountTagSeeder extends Seeder
             ],
             [
                 'color'         => '#00FF00',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Financing Activities',
@@ -40,7 +41,7 @@ class AccountTagSeeder extends Seeder
             ],
             [
                 'color'         => '#0000FF',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Investing & Extraordinary Activities',
@@ -50,7 +51,7 @@ class AccountTagSeeder extends Seeder
             ],
             [
                 'color'         => '#FFFF00',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Demo Capital Account',
@@ -60,7 +61,7 @@ class AccountTagSeeder extends Seeder
             ],
             [
                 'color'         => '#FF00FF',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Demo Stock Account',
@@ -70,7 +71,7 @@ class AccountTagSeeder extends Seeder
             ],
             [
                 'color'         => '#00FFFF',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Demo Sale of Land Account',
@@ -80,7 +81,7 @@ class AccountTagSeeder extends Seeder
             ],
             [
                 'color'         => '#000000',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Demo CEO Wages Account',
@@ -90,7 +91,7 @@ class AccountTagSeeder extends Seeder
             ],
             [
                 'color'         => '#FFFFFF',
-                'country_id'    => 1,
+                'country_id'    => $countryId,
                 'creator_id'    => $user?->id,
                 'applicability' => 'accounts',
                 'name'          => 'Office Furniture',
