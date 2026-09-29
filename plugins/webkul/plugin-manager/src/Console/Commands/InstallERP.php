@@ -487,7 +487,9 @@ class InstallERP extends Command
     {
         $this->info('👤 Creating an Admin user...');
 
-        $defaultCompany = Company::first();
+        $defaultCompany = Company::first() ?? Company::create([
+            'name' => 'Default Company',
+        ]);
 
         $userModel = app(Utils::getAuthProviderFQCN());
 

@@ -19,14 +19,18 @@ beforeEach(function () {
     TestBootstrapHelper::ensurePluginInstalled('vms');
     Artisan::call('migrate', ['--path' => 'plugins/webkul/vms/database/migrations', '--force' => true]);
 
-    $this->company = Company::first();
-    $this->user = User::first();
-    if ($this->user) {
-        Auth::login($this->user);
-    }
+    $this->company = Company::first() ?? Company::create(['name' => 'Default Company']);
+    $this->user = User::first() ?? User::create(['name' => 'Test User', 'email' => 'test@example.com', 'password' => 'secret', 'default_company_id' => $this->company->id]);
+    Auth::login($this->user);
 
-    $this->journal = Journal::where('company_id', $this->company->id)->first();
-    $this->currency = Currency::first();
+    $this->currency = Currency::first() ?? Currency::create(['name' => 'Fijian Dollar', 'code' => 'FJD', 'symbol' => '$', 'decimal_places' => 2]);
+    $this->journal = Journal::where('company_id', $this->company->id)->first() ?? Journal::create([
+        'name' => 'Sales Journal',
+        'code' => 'INV',
+        'type' => 'sale',
+        'company_id' => $this->company->id,
+        'currency_id' => $this->currency->id,
+    ]);
 
     $this->setting = VmsSetting::updateOrCreate(
         ['company_id' => $this->company->id],
