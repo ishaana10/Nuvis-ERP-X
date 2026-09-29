@@ -21,7 +21,7 @@ return new class extends Migration
                     'latest_version' => '1.0.0',
                     'license' => 'MIT',
                     'is_active' => true,
-                    'is_installed' => false,
+                    'is_installed' => true,
                     'updated_at' => now(),
                     'created_at' => now(),
                 ]
