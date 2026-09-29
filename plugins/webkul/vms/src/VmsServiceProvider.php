@@ -16,9 +16,13 @@ class VmsServiceProvider extends PackageServiceProvider
     {
         $package->name(static::$name)
             ->hasTranslations()
+            ->hasViews()
             ->hasMigrations([
                 '2026_04_01_000001_create_vms_tables',
                 '2026_04_01_000002_register_vms_plugin',
+            ])
+            ->hasSettings([
+                '2026_04_01_000003_create_vms_settings',
             ])
             ->runsMigrations()
             ->hasDependencies([
