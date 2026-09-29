@@ -8,16 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('payroll_periods', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('company_id')->nullable()->constrained('companies')->nullOnDelete();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('state')->default('draft'); // draft, confirmed, done
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (! Schema::hasTable('payroll_periods')) {
+            Schema::create('payroll_periods', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->foreignId('company_id')->nullable()->constrained('companies')->nullOnDelete();
+                $table->date('start_date');
+                $table->date('end_date');
+                $table->string('state')->default('draft'); // draft, confirmed, done
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     public function down(): void
