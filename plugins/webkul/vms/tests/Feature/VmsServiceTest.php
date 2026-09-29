@@ -1,14 +1,6 @@
 <?php
 
-if (! class_exists(\Webkul\Vms\Models\VmsSetting::class)) {
-    require_once __DIR__ . '/../../src/Models/VmsSetting.php';
-    require_once __DIR__ . '/../../src/Models/VmsTaxRate.php';
-    require_once __DIR__ . '/../../src/Models/VmsFiscalInvoice.php';
-    require_once __DIR__ . '/../../src/Models/VmsAuditLog.php';
-    require_once __DIR__ . '/../../src/Services/VmsClient.php';
-    require_once __DIR__ . '/../../src/Services/VmsService.php';
-}
-
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Webkul\Account\Enums\MoveType;
@@ -25,6 +17,7 @@ use Webkul\Vms\Services\VmsService;
 beforeEach(function () {
     TestBootstrapHelper::ensurePluginInstalled('accounts');
     TestBootstrapHelper::ensurePluginInstalled('vms');
+    Artisan::call('migrate', ['--path' => 'plugins/webkul/vms/database/migrations', '--force' => true]);
 
     $this->company = Company::first();
     $this->user = User::first();

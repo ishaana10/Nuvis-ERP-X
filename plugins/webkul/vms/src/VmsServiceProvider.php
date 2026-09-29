@@ -15,7 +15,6 @@ class VmsServiceProvider extends PackageServiceProvider
     public function configureCustomPackage(Package $package): void
     {
         $package->name(static::$name)
-            ->isCore()
             ->hasTranslations()
             ->hasMigrations([
                 '2026_04_01_000001_create_vms_tables',
