@@ -53,7 +53,20 @@ abstract class PackageServiceProvider extends BasePackageServiceProvider
 
         if (isset($shieldConfig['resources']['manage'])) {
             $existingManage = $config->get('filament-shield.resources.manage', []);
-            $config->set('filament-shield.resources.manage', array_merge($existingManage, $shieldConfig['resources']['manage']));
+            $newManage = $shieldConfig['resources']['manage'];
+
+            $merged = [];
+            foreach ($existingManage as $key => $val) {
+                if (is_string($key) && is_array($val)) {
+                    $merged[$key] = $val;
+                }
+            }
+            foreach ($newManage as $key => $val) {
+                if (is_string($key) && is_array($val)) {
+                    $merged[$key] = $val;
+                }
+            }
+            $config->set('filament-shield.resources.manage', $merged);
         }
 
         if (isset($shieldConfig['resources']['exclude'])) {

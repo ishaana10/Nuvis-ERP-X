@@ -52,6 +52,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
+            "Webkul\\Payroll\\": "plugins/webkul/payroll/src/",
             "Webkul\\Vms\\": "plugins/webkul/vms/src/"
         }
     },

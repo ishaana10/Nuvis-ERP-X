@@ -63,6 +63,7 @@ return [
     FullCalendarServiceProvider::class,
     TimesheetServiceProvider::class,
     WebsiteServiceProvider::class,
+    \Webkul\Payroll\PayrollServiceProvider::class,
     PluginManagerServiceProvider::class,
     Webkul\Vms\VmsServiceProvider::class,
 ];

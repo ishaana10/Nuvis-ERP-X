@@ -1,0 +1,32 @@
+{
+    "name": "webkul/payroll",
+    "description": "Payroll management for Nuvis ERP X / AureusERP",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nuvis ERP X",
+            "email": "support@aureuserp.in"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Webkul\\Payroll\\": "src/",
+            "Webkul\\Payroll\\Database\\Factories\\": "database/factories/",
+            "Webkul\\Payroll\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webkul\\Payroll\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webkul\\Payroll\\PayrollServiceProvider"
+            ],
+            "aliases": {}
+        }
+    }
+}
