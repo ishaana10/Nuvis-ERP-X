@@ -31,6 +31,26 @@ class ManageVms extends Page
 
     public function mount(): void
     {
+        if (! \Illuminate\Support\Facades\Schema::hasTable('vms_settings')) {
+            Notification::make()
+                ->title('VMS database tables not found')
+                ->body('Please execute "php artisan vms:install" or "php artisan migrate" in your server console to finalize installation.')
+                ->warning()
+                ->persistent()
+                ->send();
+
+            $this->form->fill([
+                'company_id' => current_company_id(),
+                'pos_number' => 'POS-001/1.0',
+                'environment' => 'sandbox',
+                'sdc_type' => 'V-SDC',
+                'api_url' => 'https://tap.sandbox.vms.frcs.org.fj',
+                'is_active' => true,
+            ]);
+
+            return;
+        }
+
         $setting = VmsSetting::where('company_id', current_company_id())->first()
             ?? VmsSetting::first();
 
