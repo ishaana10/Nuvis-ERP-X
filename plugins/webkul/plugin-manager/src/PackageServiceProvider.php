@@ -55,17 +55,7 @@ abstract class PackageServiceProvider extends BasePackageServiceProvider
             $existingManage = $config->get('filament-shield.resources.manage', []);
             $newManage = $shieldConfig['resources']['manage'];
 
-            $merged = [];
-            foreach ($existingManage as $key => $val) {
-                if (is_string($key) && is_array($val)) {
-                    $merged[$key] = $val;
-                }
-            }
-            foreach ($newManage as $key => $val) {
-                if (is_string($key) && is_array($val)) {
-                    $merged[$key] = $val;
-                }
-            }
+            $merged = array_merge($existingManage, $newManage);
             $config->set('filament-shield.resources.manage', $merged);
         }
 
