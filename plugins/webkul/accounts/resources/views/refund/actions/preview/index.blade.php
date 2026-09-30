@@ -340,6 +340,34 @@
                 </div>
             </div>
         @endif
+
+        @php
+            $fiscalInvoice = \Webkul\Vms\Models\VmsFiscalInvoice::where('account_move_id', $record->id)
+                ->where('status', 'fiscalized')
+                ->latest()
+                ->first();
+        @endphp
+
+        @if ($fiscalInvoice && $fiscalInvoice->verification_url)
+            <div style="clear: both; margin-top: 30px; padding: 20px; border: 1px dashed #1a4587; border-radius: 8px; text-align: center; background: #fdfdfd;">
+                <div style="font-weight: bold; color: #1a4587; font-size: 16px; margin-bottom: 10px;">
+                    FRCS VMS Fiscal Verification
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ urlencode($fiscalInvoice->verification_url) }}" alt="VMS Fiscal Verification QR Code" style="width: 150px; height: 150px; border: 1px solid #ddd; padding: 5px; background: #fff;" />
+                </div>
+                <div style="font-size: 12px; color: #555;">
+                    <div><strong>SDC Invoice No:</strong> {{ $fiscalInvoice->sdc_invoice_no }}</div>
+                    <div><strong>SDC Date & Time:</strong> {{ $fiscalInvoice->sdc_time?->format('Y-m-d H:i:s') }}</div>
+                    <div><strong>Invoice Counter:</strong> {{ $fiscalInvoice->invoice_counter }}</div>
+                    <div style="margin-top: 5px; word-break: break-all;">
+                        <a href="{{ $fiscalInvoice->verification_url }}" target="_blank" style="color: #1a4587; text-decoration: underline;">
+                            {{ $fiscalInvoice->verification_url }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 </body>
 </html>

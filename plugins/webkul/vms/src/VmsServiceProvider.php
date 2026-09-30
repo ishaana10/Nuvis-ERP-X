@@ -3,10 +3,12 @@
 namespace Webkul\Vms;
 
 use Filament\Panel;
+use Webkul\Account\Models\Move;
 use Webkul\PluginManager\Console\Commands\InstallCommand;
 use Webkul\PluginManager\Console\Commands\UninstallCommand;
 use Webkul\PluginManager\Package;
 use Webkul\PluginManager\PackageServiceProvider;
+use Webkul\Vms\Observers\AccountMoveObserver;
 
 class VmsServiceProvider extends PackageServiceProvider
 {
@@ -40,7 +42,7 @@ class VmsServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        //
+        Move::observe(AccountMoveObserver::class);
     }
 
     public function packageRegistered(): void
