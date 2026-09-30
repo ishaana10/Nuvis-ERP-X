@@ -143,38 +143,60 @@
             <div class="company-info">
                 @php
                     $logoDataUri = null;
-                    $rawLogo = $record->company->logo ?: settings(\Webkul\Support\Settings\BrandSettings::class)->light_logo;
+                    $candidates = array_filter([
+                        $record->company?->logo,
+                        settings(\Webkul\Support\Settings\BrandSettings::class)->light_logo ?? null,
+                        'images/logo.jpeg',
+                    ]);
 
-                    if ($rawLogo) {
+                    foreach ($candidates as $rawLogo) {
                         if (str_starts_with($rawLogo, 'http://') || str_starts_with($rawLogo, 'https://')) {
                             $logoDataUri = $rawLogo;
-                        } else {
-                            $possiblePaths = [
-                                storage_path('app/public/' . ltrim($rawLogo, '/')),
-                                storage_path('app/' . ltrim($rawLogo, '/')),
-                                public_path(ltrim($rawLogo, '/')),
-                                public_path('storage/' . ltrim($rawLogo, '/')),
-                                base_path(ltrim($rawLogo, '/')),
-                            ];
+                            break;
+                        }
 
-                            foreach ($possiblePaths as $path) {
-                                if (file_exists($path) && ! is_dir($path)) {
-                                    $mime = @mime_content_type($path) ?: 'image/png';
-                                    $content = base64_encode(file_get_contents($path));
-                                    $logoDataUri = "data:{$mime};base64,{$content}";
-                                    break;
+                        $clean = ltrim($rawLogo, '/');
+                        $possiblePaths = [
+                            public_path($clean),
+                            storage_path('app/public/' . $clean),
+                            storage_path('app/' . $clean),
+                            public_path('storage/' . $clean),
+                            base_path($clean),
+                        ];
+
+                        foreach ($possiblePaths as $path) {
+                            if (@file_exists($path) && ! @is_dir($path)) {
+                                $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                                $mime = match ($ext) {
+                                    'jpg', 'jpeg' => 'image/jpeg',
+                                    'png' => 'image/png',
+                                    'gif' => 'image/gif',
+                                    'webp' => 'image/webp',
+                                    'svg' => 'image/svg+xml',
+                                    default => @mime_content_type($path) ?: 'image/jpeg',
+                                };
+
+                                $fileContent = @file_get_contents($path);
+                                if ($fileContent !== false) {
+                                    $logoDataUri = "data:{$mime};base64," . base64_encode($fileContent);
+                                    break 2;
                                 }
                             }
+                        }
 
-                            if (! $logoDataUri) {
-                                if (Storage::disk('public')->exists($rawLogo)) {
-                                    $logoDataUri = Storage::disk('public')->url($rawLogo);
-                                } elseif (Storage::exists($rawLogo)) {
-                                    $logoDataUri = Storage::url($rawLogo);
-                                } else {
-                                    $logoDataUri = asset(ltrim($rawLogo, '/'));
-                                }
+                        try {
+                            if (Storage::disk('public')->exists($rawLogo)) {
+                                $logoDataUri = Storage::disk('public')->url($rawLogo);
+                                break;
+                            } elseif (Storage::exists($rawLogo)) {
+                                $logoDataUri = Storage::url($rawLogo);
+                                break;
                             }
+                        } catch (\Throwable $e) {}
+
+                        if (! $logoDataUri && file_exists(public_path($clean))) {
+                            $logoDataUri = asset($clean);
+                            break;
                         }
                     }
                 @endphp
