@@ -37,9 +37,10 @@ trait HasFilamentDefaults
                     <x-filament::dropdown.list.item>
                         <div class="flex items-center gap-2">
                             <img
-                                src="{{ url('cache/logo.png') }}"
+                                src="{{ asset('images/logo.jpeg') }}"
                                 width="24"
                                 height="24"
+                                class="object-contain rounded"
                             />
 
                             {{ __('support::support.version', ['version' => $version]) }}
