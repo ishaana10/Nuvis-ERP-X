@@ -5,6 +5,11 @@ namespace Webkul\Vms;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Webkul\PluginManager\Package;
+use Webkul\Vms\Filament\Clusters\Settings\Pages\ManageVms;
+use Webkul\Vms\Filament\Pages\VmsSettingsPage;
+use Webkul\Vms\Filament\Resources\VmsAuditLogResource;
+use Webkul\Vms\Filament\Resources\VmsFiscalInvoiceResource;
+use Webkul\Vms\Filament\Resources\VmsTaxRateResource;
 
 class VmsPlugin implements Plugin
 {
@@ -28,13 +33,13 @@ class VmsPlugin implements Plugin
             ->when($panel->getId() == 'admin', function (Panel $panel) {
                 $panel
                     ->resources([
-                        \Webkul\Vms\Filament\Resources\VmsFiscalInvoiceResource::class,
-                        \Webkul\Vms\Filament\Resources\VmsTaxRateResource::class,
-                        \Webkul\Vms\Filament\Resources\VmsAuditLogResource::class,
+                        VmsFiscalInvoiceResource::class,
+                        VmsTaxRateResource::class,
+                        VmsAuditLogResource::class,
                     ])
                     ->pages([
-                        \Webkul\Vms\Filament\Pages\VmsSettingsPage::class,
-                        \Webkul\Vms\Filament\Clusters\Settings\Pages\ManageVms::class,
+                        VmsSettingsPage::class,
+                        ManageVms::class,
                     ]);
             });
     }

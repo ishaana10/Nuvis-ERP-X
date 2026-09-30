@@ -19,6 +19,7 @@ use Webkul\Payroll\Filament\Admin\Resources\PayrollRunResource\Pages\ListPayroll
 use Webkul\Payroll\Models\PayrollRun;
 use Webkul\Payroll\Services\AccountingPoster;
 use Webkul\Payroll\Services\PayslipGenerator;
+use Webkul\Support\Enums\NavigationGroup;
 
 class PayrollRunResource extends Resource
 {
@@ -28,7 +29,7 @@ class PayrollRunResource extends Resource
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?int $navigationSort = 5;

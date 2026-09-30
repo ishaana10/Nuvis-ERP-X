@@ -2,6 +2,9 @@
 
 require_once __DIR__.'/../../../support/tests/Helpers/TestBootstrapHelper.php';
 
+use Webkul\Account\Enums\AccountType;
+use Webkul\Account\Enums\JournalType;
+use Webkul\Account\Enums\MoveState;
 use Webkul\Account\Models\Account;
 use Webkul\Account\Models\Journal;
 use Webkul\Employee\Models\Employee;
@@ -22,22 +25,22 @@ it('creates posted journal entry for confirmed payslip', function () {
     $company = Company::first() ?? Company::create(['name' => 'Payroll Company']);
 
     $journal = Journal::create([
-        'name' => 'Payroll Journal Post',
-        'code' => 'PAYPOST',
+        'name'       => 'Payroll Journal Post',
+        'code'       => 'PAYPOST',
         'company_id' => $company->id,
-        'type' => \Webkul\Account\Enums\JournalType::GENERAL,
+        'type'       => JournalType::GENERAL,
     ]);
 
     $salaryAccount = Account::create([
-        'name' => 'Salary Expense Post',
-        'code' => '600000POST',
-        'account_type' => \Webkul\Account\Enums\AccountType::EXPENSE,
+        'name'         => 'Salary Expense Post',
+        'code'         => '600000POST',
+        'account_type' => AccountType::EXPENSE,
     ]);
 
     $payableAccount = Account::create([
-        'name' => 'Employee Payable Post',
-        'code' => '200000POST',
-        'account_type' => \Webkul\Account\Enums\AccountType::LIABILITY_PAYABLE,
+        'name'         => 'Employee Payable Post',
+        'code'         => '200000POST',
+        'account_type' => AccountType::LIABILITY_PAYABLE,
     ]);
 
     $settings = app(PayrollSettings::class);
@@ -47,39 +50,39 @@ it('creates posted journal entry for confirmed payslip', function () {
     $settings->save();
 
     $employee = Employee::create([
-        'name' => 'Mark Post',
+        'name'       => 'Mark Post',
         'work_email' => 'mark.post@example.com',
         'company_id' => $company->id,
     ]);
 
     $contract = EmployeeContract::create([
-        'name' => 'Mark Contract Post',
+        'name'        => 'Mark Contract Post',
         'employee_id' => $employee->id,
-        'journal_id' => $journal->id,
-        'company_id' => $company->id,
-        'wage' => 3000,
-        'start_date' => now()->toDateString(),
+        'journal_id'  => $journal->id,
+        'company_id'  => $company->id,
+        'wage'        => 3000,
+        'start_date'  => now()->toDateString(),
     ]);
 
     $payslip = Payslip::create([
-        'name' => 'Mark Payslip Post',
-        'employee_id' => $employee->id,
-        'contract_id' => $contract->id,
-        'company_id' => $company->id,
-        'basic_wage' => 3000,
-        'gross_wage' => 3000,
-        'net_wage' => 3000,
-        'total_deductions' => 0,
+        'name'                         => 'Mark Payslip Post',
+        'employee_id'                  => $employee->id,
+        'contract_id'                  => $contract->id,
+        'company_id'                   => $company->id,
+        'basic_wage'                   => 3000,
+        'gross_wage'                   => 3000,
+        'net_wage'                     => 3000,
+        'total_deductions'             => 0,
         'total_employer_contributions' => 0,
-        'start_date' => now()->startOfMonth()->toDateString(),
-        'end_date' => now()->endOfMonth()->toDateString(),
+        'start_date'                   => now()->startOfMonth()->toDateString(),
+        'end_date'                     => now()->endOfMonth()->toDateString(),
     ]);
 
-    $poster = new AccountingPoster();
+    $poster = new AccountingPoster;
     $move = $poster->postPayslip($payslip);
 
     expect($move)->not->toBeNull();
     expect($payslip->fresh()->state)->toBe(PayslipState::CONFIRMED);
-    expect($move->state)->toBe(\Webkul\Account\Enums\MoveState::POSTED);
+    expect($move->state)->toBe(MoveState::POSTED);
     expect($move->lines->count())->toBe(2);
 });

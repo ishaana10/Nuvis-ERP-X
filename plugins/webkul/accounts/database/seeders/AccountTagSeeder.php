@@ -5,6 +5,7 @@ namespace Webkul\Account\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Webkul\Security\Models\User;
+use Webkul\Support\Models\Country;
 
 class AccountTagSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class AccountTagSeeder extends Seeder
         DB::table('accounts_account_tags')->delete();
 
         $user = User::first();
-        $countryId = \Webkul\Support\Models\Country::first()?->id;
+        $countryId = Country::first()?->id;
 
         $accountTags = [
             [

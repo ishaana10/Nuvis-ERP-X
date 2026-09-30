@@ -19,6 +19,7 @@ use Webkul\Payroll\Enums\AmountType;
 use Webkul\Payroll\Enums\RuleCategory;
 use Webkul\Payroll\Filament\Admin\Resources\SalaryRuleResource\Pages\ListSalaryRules;
 use Webkul\Payroll\Models\SalaryRule;
+use Webkul\Support\Enums\NavigationGroup;
 
 class SalaryRuleResource extends Resource
 {
@@ -28,7 +29,7 @@ class SalaryRuleResource extends Resource
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?int $navigationSort = 2;

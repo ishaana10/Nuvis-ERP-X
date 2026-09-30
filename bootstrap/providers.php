@@ -19,6 +19,7 @@ use Webkul\Maintenance\MaintenanceServiceProvider;
 use Webkul\Manufacturing\ManufacturingServiceProvider;
 use Webkul\Partner\PartnerServiceProvider;
 use Webkul\Payment\PaymentServiceProvider;
+use Webkul\Payroll\PayrollServiceProvider;
 use Webkul\PluginManager\PluginManagerServiceProvider;
 use Webkul\Product\ProductServiceProvider;
 use Webkul\Project\ProjectServiceProvider;
@@ -30,6 +31,7 @@ use Webkul\Support\SupportServiceProvider;
 use Webkul\TableViews\TableViewsServiceProvider;
 use Webkul\TimeOff\TimeOffServiceProvider;
 use Webkul\Timesheet\TimesheetServiceProvider;
+use Webkul\Vms\VmsServiceProvider;
 use Webkul\Website\WebsiteServiceProvider;
 
 return [
@@ -63,7 +65,7 @@ return [
     FullCalendarServiceProvider::class,
     TimesheetServiceProvider::class,
     WebsiteServiceProvider::class,
-    \Webkul\Payroll\PayrollServiceProvider::class,
+    PayrollServiceProvider::class,
     PluginManagerServiceProvider::class,
-    Webkul\Vms\VmsServiceProvider::class,
+    VmsServiceProvider::class,
 ];

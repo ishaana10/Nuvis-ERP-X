@@ -2,12 +2,12 @@
 
 namespace Webkul\Payroll\Services;
 
+use Illuminate\Support\Collection;
 use Webkul\Payroll\Enums\ContractState;
 use Webkul\Payroll\Enums\PayslipState;
 use Webkul\Payroll\Models\EmployeeContract;
 use Webkul\Payroll\Models\PayrollRun;
 use Webkul\Payroll\Models\Payslip;
-use Webkul\Payroll\Models\PayslipLine;
 
 class PayslipGenerator
 {
@@ -42,7 +42,7 @@ class PayslipGenerator
     /**
      * Generate payslips for all active employee contracts in a payroll run.
      *
-     * @return \Illuminate\Support\Collection<int, Payslip>
+     * @return Collection<int, Payslip>
      */
     public function generateForRun(PayrollRun $run)
     {

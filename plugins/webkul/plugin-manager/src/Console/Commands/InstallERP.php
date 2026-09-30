@@ -494,7 +494,7 @@ class InstallERP extends Command
         if (! $defaultCompany) {
             $currency = Currency::resolveDefault() ?? Currency::first();
             $defaultCompany = Company::create([
-                'name' => 'My Company',
+                'name'        => 'My Company',
                 'currency_id' => $currency?->id,
             ]);
         }

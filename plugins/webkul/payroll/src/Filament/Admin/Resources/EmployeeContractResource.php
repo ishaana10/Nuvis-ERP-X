@@ -18,6 +18,7 @@ use Filament\Tables\Table;
 use Webkul\Payroll\Enums\ContractState;
 use Webkul\Payroll\Filament\Admin\Resources\EmployeeContractResource\Pages\ListEmployeeContracts;
 use Webkul\Payroll\Models\EmployeeContract;
+use Webkul\Support\Enums\NavigationGroup;
 
 class EmployeeContractResource extends Resource
 {
@@ -27,7 +28,7 @@ class EmployeeContractResource extends Resource
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?int $navigationSort = 3;

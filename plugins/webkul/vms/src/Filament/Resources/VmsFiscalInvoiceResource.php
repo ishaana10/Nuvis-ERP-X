@@ -112,19 +112,19 @@ class VmsFiscalInvoiceResource extends Resource
                     ->label('Type')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'Normal' => 'primary',
-                        'Advance' => 'warning',
-                        'Copy' => 'gray',
+                        'Normal'   => 'primary',
+                        'Advance'  => 'warning',
+                        'Copy'     => 'gray',
                         'Proforma' => 'info',
-                        default => 'secondary',
+                        default    => 'secondary',
                     }),
                 TextColumn::make('transaction_type')
                     ->label('Tx Type')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'Sale' => 'success',
+                        'Sale'   => 'success',
                         'Refund' => 'danger',
-                        default => 'secondary',
+                        default  => 'secondary',
                     }),
                 TextColumn::make('total_amount')
                     ->label('Total Amount')
@@ -139,9 +139,9 @@ class VmsFiscalInvoiceResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'fiscalized' => 'success',
-                        'failed' => 'danger',
-                        'canceled' => 'gray',
-                        default => 'info',
+                        'failed'     => 'danger',
+                        'canceled'   => 'gray',
+                        default      => 'info',
                     }),
                 TextColumn::make('sdc_time')
                     ->label('SDC Date & Time')
@@ -157,7 +157,7 @@ class VmsFiscalInvoiceResource extends Resource
                     ->requiresConfirmation()
                     ->visible(fn (VmsFiscalInvoice $record) => $record->status === 'fiscalized' && ! in_array($record->invoice_type, ['Proforma', 'Copy', 'Training']))
                     ->action(function (VmsFiscalInvoice $record) {
-                        $service = new VmsService();
+                        $service = new VmsService;
                         $service->cancelFiscalInvoice($record);
                     }),
             ])

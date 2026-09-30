@@ -40,11 +40,11 @@ class VmsFiscalInvoice extends Model
     ];
 
     protected $casts = [
-        'sdc_time' => 'datetime',
-        'ref_time' => 'datetime',
-        'total_amount' => 'decimal:4',
-        'total_tax' => 'decimal:4',
-        'request_payload' => 'array',
+        'sdc_time'         => 'datetime',
+        'ref_time'         => 'datetime',
+        'total_amount'     => 'decimal:4',
+        'total_tax'        => 'decimal:4',
+        'request_payload'  => 'array',
         'response_payload' => 'array',
     ];
 

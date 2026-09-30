@@ -49,10 +49,10 @@ class VmsAuditLogResource extends Resource
                     ->label('Type')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'info' => 'info',
-                        'error' => 'danger',
+                        'info'    => 'info',
+                        'error'   => 'danger',
                         'warning' => 'warning',
-                        default => 'secondary',
+                        default   => 'secondary',
                     }),
                 TextColumn::make('message')->label('Message')->searchable(),
                 TextColumn::make('status')
@@ -60,8 +60,8 @@ class VmsAuditLogResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'verified' => 'success',
-                        'error' => 'danger',
-                        default => 'secondary',
+                        'error'    => 'danger',
+                        default    => 'secondary',
                     }),
             ])
             ->defaultSort('id', 'desc');

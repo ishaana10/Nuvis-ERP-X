@@ -18,6 +18,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Webkul\Payroll\Filament\Admin\Resources\PayrollStructureResource\Pages\ListPayrollStructures;
 use Webkul\Payroll\Models\PayrollStructure;
+use Webkul\Support\Enums\NavigationGroup;
 
 class PayrollStructureResource extends Resource
 {
@@ -27,7 +28,7 @@ class PayrollStructureResource extends Resource
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?int $navigationSort = 1;
