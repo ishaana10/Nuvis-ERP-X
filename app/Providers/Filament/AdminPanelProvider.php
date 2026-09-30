@@ -15,6 +15,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -109,6 +110,10 @@ class AdminPanelProvider extends PanelProvider
             ->multiFactorAuthentication([
                 AppAuthentication::make()
                     ->recoverable(),
-            ]);
+            ])
+            ->renderHook(
+                PanelsRenderHook::SIMPLE_LAYOUT_END,
+                fn (): string => '<div class="mt-4 pb-4 text-center text-xs text-gray-500 dark:text-gray-400">v1.0</div>'
+            );
     }
 }

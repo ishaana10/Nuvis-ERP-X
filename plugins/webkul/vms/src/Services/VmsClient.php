@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Http;
 class VmsClient
 {
     protected string $baseUrl;
+
     protected ?string $pfxPath = null;
+
     protected ?string $pfxPassword = null;
+
     protected ?string $pac = null;
 
     public function __construct(array $config = [])
@@ -24,7 +27,7 @@ class VmsClient
      */
     public function fiscalizeInvoice(array $payload): array
     {
-        $url = $this->baseUrl . '/api/v1/invoices';
+        $url = $this->baseUrl.'/api/v1/invoices';
 
         $httpClient = Http::acceptJson()->contentType('application/json');
 
@@ -44,13 +47,13 @@ class VmsClient
             if ($response->successful()) {
                 return [
                     'success' => true,
-                    'data' => $response->json(),
+                    'data'    => $response->json(),
                 ];
             }
 
             return [
-                'success' => false,
-                'error' => $response->json('message') ?? 'VMS SDC error: ' . $response->status(),
+                'success'  => false,
+                'error'    => $response->json('message') ?? 'VMS SDC error: '.$response->status(),
                 'response' => $response->json(),
             ];
         } catch (\Exception $e) {
@@ -63,7 +66,7 @@ class VmsClient
      */
     public function fetchTaxRates(): array
     {
-        $url = $this->baseUrl . '/api/v1/taxrates';
+        $url = $this->baseUrl.'/api/v1/taxrates';
 
         try {
             $response = Http::acceptJson()->get($url);
@@ -71,7 +74,7 @@ class VmsClient
             if ($response->successful()) {
                 return [
                     'success' => true,
-                    'data' => $response->json(),
+                    'data'    => $response->json(),
                 ];
             }
         } catch (\Exception $e) {
@@ -80,7 +83,7 @@ class VmsClient
 
         return [
             'success' => true,
-            'data' => [
+            'data'    => [
                 ['label' => 'A', 'name' => 'AVAT', 'rate' => 15.00],
                 ['label' => 'E', 'name' => 'EVAT', 'rate' => 9.00],
                 ['label' => 'F', 'name' => 'Exempt', 'rate' => 0.00],
@@ -102,8 +105,8 @@ class VmsClient
         $invoiceType = $payload['invoiceType'] ?? 'Normal';
         $transactionType = $payload['transactionType'] ?? 'Sale';
 
-        $typeAbbr = strtoupper(substr($invoiceType, 0, 1) . substr($transactionType, 0, 1));
-        $invoiceCounter = rand(1000, 9999) . "/{$ordinal}{$typeAbbr}";
+        $typeAbbr = strtoupper(substr($invoiceType, 0, 1).substr($transactionType, 0, 1));
+        $invoiceCounter = rand(1000, 9999)."/{$ordinal}{$typeAbbr}";
 
         $verificationUrl = "https://tap.sandbox.vms.frcs.org.fj/verify/{$sdcInvoiceNo}";
 
@@ -120,27 +123,27 @@ class VmsClient
 
                 $taxItems[] = [
                     'categoryName' => 'VAT',
-                    'label' => $item['labels'][0] ?? 'A',
-                    'rate' => 15.00,
-                    'amount' => $taxAmount,
+                    'label'        => $item['labels'][0] ?? 'A',
+                    'rate'         => 15.00,
+                    'amount'       => $taxAmount,
                 ];
             }
         }
 
         return [
             'success' => true,
-            'data' => [
-                'sdcDateTime' => $sdcTime,
-                'sdcInvoiceNo' => $sdcInvoiceNo,
-                'invoiceCounter' => $invoiceCounter,
-                'requestedBy' => $requestedBy,
-                'signedBy' => $signedBy,
-                'verificationUrl' => $verificationUrl,
-                'encryptedInternalData' => base64_encode($sdcInvoiceNo . '|' . $sdcTime),
-                'signature' => strtoupper(sha1($sdcInvoiceNo)),
-                'taxItems' => $taxItems,
-                'totalAmount' => round($totalAmount, 4),
-                'totalTax' => round($totalTax, 4),
+            'data'    => [
+                'sdcDateTime'           => $sdcTime,
+                'sdcInvoiceNo'          => $sdcInvoiceNo,
+                'invoiceCounter'        => $invoiceCounter,
+                'requestedBy'           => $requestedBy,
+                'signedBy'              => $signedBy,
+                'verificationUrl'       => $verificationUrl,
+                'encryptedInternalData' => base64_encode($sdcInvoiceNo.'|'.$sdcTime),
+                'signature'             => strtoupper(sha1($sdcInvoiceNo)),
+                'taxItems'              => $taxItems,
+                'totalAmount'           => round($totalAmount, 4),
+                'totalTax'              => round($totalTax, 4),
             ],
             'simulated' => true,
         ];

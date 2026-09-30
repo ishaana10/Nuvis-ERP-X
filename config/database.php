@@ -55,7 +55,7 @@ return [
             'collation'      => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
             'prefix'         => '',
             'prefix_indexes' => true,
-            'strict'         => false,
+            'strict'         => true,
             'engine'         => null,
             'options'        => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -75,7 +75,7 @@ return [
             'collation'      => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
             'prefix'         => '',
             'prefix_indexes' => true,
-            'strict'         => false,
+            'strict'         => true,
             'engine'         => null,
             'options'        => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -121,7 +121,7 @@ return [
     |
     | This table keeps track of all the migrations that have already run for
     | your application. Using this information, we can determine which of
-    | the migrations on disk haven't actually been run on the database.
+    | the migrations on disk have not actually been run in the database.
     |
     */
 

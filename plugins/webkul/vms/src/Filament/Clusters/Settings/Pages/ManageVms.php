@@ -33,12 +33,12 @@ class ManageVms extends Page
     {
         if (! \Illuminate\Support\Facades\Schema::hasTable('vms_settings')) {
             $this->form->fill([
-                'company_id' => current_company_id(),
-                'pos_number' => 'POS-001/1.0',
+                'company_id'  => current_company_id(),
+                'pos_number'  => 'POS-001/1.0',
                 'environment' => 'sandbox',
-                'sdc_type' => 'V-SDC',
-                'api_url' => 'https://tap.sandbox.vms.frcs.org.fj',
-                'is_active' => true,
+                'sdc_type'    => 'V-SDC',
+                'api_url'     => 'https://tap.sandbox.vms.frcs.org.fj',
+                'is_active'   => true,
             ]);
 
             return;
@@ -51,12 +51,12 @@ class ManageVms extends Page
             $this->form->fill($setting->toArray());
         } else {
             $this->form->fill([
-                'company_id' => current_company_id(),
-                'pos_number' => 'POS-001/1.0',
+                'company_id'  => current_company_id(),
+                'pos_number'  => 'POS-001/1.0',
                 'environment' => 'sandbox',
-                'sdc_type' => 'V-SDC',
-                'api_url' => 'https://tap.sandbox.vms.frcs.org.fj',
-                'is_active' => true,
+                'sdc_type'    => 'V-SDC',
+                'api_url'     => 'https://tap.sandbox.vms.frcs.org.fj',
+                'is_active'   => true,
             ]);
         }
     }
@@ -93,7 +93,7 @@ class ManageVms extends Page
                             Select::make('environment')
                                 ->label('Environment')
                                 ->options([
-                                    'sandbox' => 'Sandbox / Accreditation',
+                                    'sandbox'    => 'Sandbox / Accreditation',
                                     'production' => 'Production / Live',
                                 ])
                                 ->default('sandbox')

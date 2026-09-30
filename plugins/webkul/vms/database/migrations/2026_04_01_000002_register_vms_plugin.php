@@ -15,15 +15,15 @@ return new class extends Migration
             DB::table('plugins')->updateOrInsert(
                 ['name' => 'vms'],
                 [
-                    'author' => 'Nuvis ERP X',
-                    'summary' => 'VAT Monitoring System (VMS) EFD and Fiscalization Module for FRCS Compliance',
-                    'description' => 'VAT Monitoring System (VMS) EFD and Fiscalization Module for FRCS Compliance',
+                    'author'         => 'Nuvis ERP X',
+                    'summary'        => 'VAT Monitoring System (VMS) EFD and Fiscalization Module for FRCS Compliance',
+                    'description'    => 'VAT Monitoring System (VMS) EFD and Fiscalization Module for FRCS Compliance',
                     'latest_version' => '1.0.0',
-                    'license' => 'MIT',
-                    'is_active' => true,
-                    'is_installed' => true,
-                    'updated_at' => now(),
-                    'created_at' => now(),
+                    'license'        => 'MIT',
+                    'is_active'      => true,
+                    'is_installed'   => true,
+                    'updated_at'     => now(),
+                    'created_at'     => now(),
                 ]
             );
         }

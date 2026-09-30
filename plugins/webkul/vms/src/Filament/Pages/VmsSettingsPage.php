@@ -37,12 +37,12 @@ class VmsSettingsPage extends Page
             $this->form->fill($setting->toArray());
         } else {
             $this->form->fill([
-                'company_id' => current_company_id(),
-                'pos_number' => 'POS-001/1.0',
+                'company_id'  => current_company_id(),
+                'pos_number'  => 'POS-001/1.0',
                 'environment' => 'sandbox',
-                'sdc_type' => 'V-SDC',
-                'api_url' => 'https://tap.sandbox.vms.frcs.org.fj',
-                'is_active' => true,
+                'sdc_type'    => 'V-SDC',
+                'api_url'     => 'https://tap.sandbox.vms.frcs.org.fj',
+                'is_active'   => true,
             ]);
         }
     }
@@ -74,7 +74,7 @@ class VmsSettingsPage extends Page
                             Select::make('environment')
                                 ->label('Environment')
                                 ->options([
-                                    'sandbox' => 'Sandbox / Accreditation',
+                                    'sandbox'    => 'Sandbox / Accreditation',
                                     'production' => 'Production / Live',
                                 ])
                                 ->default('sandbox')
@@ -138,7 +138,7 @@ class VmsSettingsPage extends Page
                 ->icon('heroicon-o-arrow-path')
                 ->color('info')
                 ->action(function () {
-                    $service = new VmsService();
+                    $service = new VmsService;
                     $res = $service->syncTaxRates();
 
                     if ($res['success']) {

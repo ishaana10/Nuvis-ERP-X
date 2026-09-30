@@ -14,11 +14,11 @@ class ViewVmsFiscalInvoice extends ViewRecord
 
     public string $receiptText = '';
 
-    public function mount(int | string $record): void
+    public function mount(int|string $record): void
     {
         parent::mount($record);
 
-        $service = new VmsService();
+        $service = new VmsService;
         $this->receiptText = $service->generateFiscalReceiptText($this->record);
     }
 
@@ -33,7 +33,7 @@ class ViewVmsFiscalInvoice extends ViewRecord
                 ->modalSubmitAction(false)
                 ->modalCancelActionLabel('Close')
                 ->modalContent(fn (): View => view('vms::filament.pages.receipt-preview', [
-                    'receiptText' => $this->receiptText,
+                    'receiptText'   => $this->receiptText,
                     'fiscalInvoice' => $this->record,
                 ])),
         ];

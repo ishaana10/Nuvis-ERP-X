@@ -16,6 +16,7 @@ use Filament\Tables\Table;
 use Webkul\Payroll\Enums\PayrollRunState;
 use Webkul\Payroll\Filament\Admin\Resources\PayrollPeriodResource\Pages\ListPayrollPeriods;
 use Webkul\Payroll\Models\PayrollPeriod;
+use Webkul\Support\Enums\NavigationGroup;
 
 class PayrollPeriodResource extends Resource
 {
@@ -25,7 +26,7 @@ class PayrollPeriodResource extends Resource
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?int $navigationSort = 4;

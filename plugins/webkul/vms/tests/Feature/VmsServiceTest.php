@@ -25,23 +25,23 @@ beforeEach(function () {
 
     $this->currency = Currency::first() ?? Currency::create(['name' => 'Fijian Dollar', 'code' => 'FJD', 'symbol' => '$', 'decimal_places' => 2]);
     $this->journal = Journal::where('company_id', $this->company->id)->first() ?? Journal::create([
-        'name' => 'Sales Journal',
-        'code' => 'INV',
-        'type' => 'sale',
-        'company_id' => $this->company->id,
+        'name'        => 'Sales Journal',
+        'code'        => 'INV',
+        'type'        => 'sale',
+        'company_id'  => $this->company->id,
         'currency_id' => $this->currency->id,
     ]);
 
     $this->setting = VmsSetting::updateOrCreate(
         ['company_id' => $this->company->id],
         [
-            'tin' => '502579006',
-            'mrc' => 'MRC-998877',
-            'pos_number' => 'POS-001/1.0',
+            'tin'         => '502579006',
+            'mrc'         => 'MRC-998877',
+            'pos_number'  => 'POS-001/1.0',
             'environment' => 'sandbox',
-            'sdc_type' => 'V-SDC',
-            'api_url' => 'https://tap.sandbox.vms.frcs.org.fj',
-            'is_active' => true,
+            'sdc_type'    => 'V-SDC',
+            'api_url'     => 'https://tap.sandbox.vms.frcs.org.fj',
+            'is_active'   => true,
         ]
     );
 });
@@ -49,15 +49,15 @@ beforeEach(function () {
 test('vms client simulates fiscalization response when sandbox endpoint is unreachable', function () {
     Http::fake([
         'https://tap.sandbox.vms.frcs.org.fj/*' => Http::response([
-            'sdcDateTime' => '2026-04-01T10:00:00',
-            'sdcInvoiceNo' => '7AF234D9-E377B30A-150493',
-            'invoiceCounter' => '1001/150493NS',
-            'requestedBy' => '7AF234D9',
-            'signedBy' => 'E377B30A',
+            'sdcDateTime'     => '2026-04-01T10:00:00',
+            'sdcInvoiceNo'    => '7AF234D9-E377B30A-150493',
+            'invoiceCounter'  => '1001/150493NS',
+            'requestedBy'     => '7AF234D9',
+            'signedBy'        => 'E377B30A',
             'verificationUrl' => 'https://tap.sandbox.vms.frcs.org.fj/verify/7AF234D9-E377B30A-150493',
-            'signature' => 'MOCK_SIGNATURE',
-            'totalAmount' => 800.0,
-            'totalTax' => 104.35,
+            'signature'       => 'MOCK_SIGNATURE',
+            'totalAmount'     => 800.0,
+            'totalTax'        => 104.35,
         ], 200),
     ]);
 
@@ -66,10 +66,10 @@ test('vms client simulates fiscalization response when sandbox endpoint is unrea
     ]);
 
     $payload = [
-        'invoiceType' => 'Normal',
+        'invoiceType'     => 'Normal',
         'transactionType' => 'Sale',
-        'cashier' => 'Admin',
-        'items' => [
+        'cashier'         => 'Admin',
+        'items'           => [
             ['name' => 'Samsung phone', 'quantity' => 1, 'unitPrice' => 800.0, 'totalAmount' => 800.0, 'labels' => ['A']],
         ],
     ];
@@ -84,27 +84,27 @@ test('vms client simulates fiscalization response when sandbox endpoint is unrea
 test('vms service fiscalizes an account move and records fiscal invoice', function () {
     Http::fake([
         'https://tap.sandbox.vms.frcs.org.fj/*' => Http::response([
-            'sdcDateTime' => '2026-04-01T10:00:00',
-            'sdcInvoiceNo' => '7AF234D9-E377B30A-150493',
-            'invoiceCounter' => '1001/150493NS',
-            'requestedBy' => '7AF234D9',
-            'signedBy' => 'E377B30A',
+            'sdcDateTime'     => '2026-04-01T10:00:00',
+            'sdcInvoiceNo'    => '7AF234D9-E377B30A-150493',
+            'invoiceCounter'  => '1001/150493NS',
+            'requestedBy'     => '7AF234D9',
+            'signedBy'        => 'E377B30A',
             'verificationUrl' => 'https://tap.sandbox.vms.frcs.org.fj/verify/7AF234D9-E377B30A-150493',
-            'signature' => 'MOCK_SIGNATURE',
-            'totalAmount' => 800.0,
-            'totalTax' => 104.35,
+            'signature'       => 'MOCK_SIGNATURE',
+            'totalAmount'     => 800.0,
+            'totalTax'        => 104.35,
         ], 200),
     ]);
 
     $move = Move::create([
-        'company_id' => $this->company->id,
-        'journal_id' => $this->journal?->id,
-        'currency_id' => $this->currency?->id,
-        'creator_id' => $this->user?->id,
-        'move_type' => MoveType::OUT_INVOICE,
-        'name' => 'INV/2026/00001',
+        'company_id'   => $this->company->id,
+        'journal_id'   => $this->journal?->id,
+        'currency_id'  => $this->currency?->id,
+        'creator_id'   => $this->user?->id,
+        'move_type'    => MoveType::OUT_INVOICE,
+        'name'         => 'INV/2026/00001',
         'amount_total' => 800.0,
-        'amount_tax' => 104.35,
+        'amount_tax'   => 104.35,
     ]);
 
     $service = new VmsService($this->company->id);
@@ -120,27 +120,27 @@ test('vms service fiscalizes an account move and records fiscal invoice', functi
 test('vms service cancels fiscal invoice following FRCS Section 10.2 rules', function () {
     Http::fake([
         'https://tap.sandbox.vms.frcs.org.fj/*' => Http::response([
-            'sdcDateTime' => '2026-04-01T10:00:00',
-            'sdcInvoiceNo' => '7AF234D9-E377B30A-150493',
-            'invoiceCounter' => '1001/150493NS',
-            'requestedBy' => '7AF234D9',
-            'signedBy' => 'E377B30A',
+            'sdcDateTime'     => '2026-04-01T10:00:00',
+            'sdcInvoiceNo'    => '7AF234D9-E377B30A-150493',
+            'invoiceCounter'  => '1001/150493NS',
+            'requestedBy'     => '7AF234D9',
+            'signedBy'        => 'E377B30A',
             'verificationUrl' => 'https://tap.sandbox.vms.frcs.org.fj/verify/7AF234D9-E377B30A-150493',
-            'signature' => 'MOCK_SIGNATURE',
-            'totalAmount' => 500.0,
-            'totalTax' => 65.22,
+            'signature'       => 'MOCK_SIGNATURE',
+            'totalAmount'     => 500.0,
+            'totalTax'        => 65.22,
         ], 200),
     ]);
 
     $move = Move::create([
-        'company_id' => $this->company->id,
-        'journal_id' => $this->journal?->id,
-        'currency_id' => $this->currency?->id,
-        'creator_id' => $this->user?->id,
-        'move_type' => MoveType::OUT_INVOICE,
-        'name' => 'INV/2026/00002',
+        'company_id'   => $this->company->id,
+        'journal_id'   => $this->journal?->id,
+        'currency_id'  => $this->currency?->id,
+        'creator_id'   => $this->user?->id,
+        'move_type'    => MoveType::OUT_INVOICE,
+        'name'         => 'INV/2026/00002',
         'amount_total' => 500.0,
-        'amount_tax' => 65.22,
+        'amount_tax'   => 65.22,
     ]);
 
     $service = new VmsService($this->company->id);
@@ -158,19 +158,19 @@ test('vms service cancels fiscal invoice following FRCS Section 10.2 rules', fun
 
 test('vms service generates formatted fiscal receipt text matching FRCS specs', function () {
     $fiscalInvoice = VmsFiscalInvoice::create([
-        'company_id' => $this->company->id,
-        'invoice_type' => 'Normal',
+        'company_id'       => $this->company->id,
+        'invoice_type'     => 'Normal',
         'transaction_type' => 'Sale',
-        'sdc_invoice_no' => '7AF234D9-E377B30A-150493',
-        'sdc_time' => now(),
-        'invoice_counter' => '143027/150493NS',
-        'cashier' => 'Admin',
+        'sdc_invoice_no'   => '7AF234D9-E377B30A-150493',
+        'sdc_time'         => now(),
+        'invoice_counter'  => '143027/150493NS',
+        'cashier'          => 'Admin',
         'verification_url' => 'https://tap.sandbox.vms.frcs.org.fj/verify/7AF234D9-E377B30A-150493',
-        'total_amount' => 800.0,
-        'total_tax' => 104.35,
-        'payment_method' => 'Cash',
-        'status' => 'fiscalized',
-        'request_payload' => [
+        'total_amount'     => 800.0,
+        'total_tax'        => 104.35,
+        'payment_method'   => 'Cash',
+        'status'           => 'fiscalized',
+        'request_payload'  => [
             'items' => [
                 ['name' => 'Samsung phone', 'quantity' => 1, 'unitPrice' => 800.0, 'totalAmount' => 800.0, 'labels' => ['A']],
             ],

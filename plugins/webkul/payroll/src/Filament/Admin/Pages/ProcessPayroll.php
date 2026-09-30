@@ -13,6 +13,7 @@ use Webkul\Payroll\Models\PayrollPeriod;
 use Webkul\Payroll\Models\PayrollRun;
 use Webkul\Payroll\Services\AccountingPoster;
 use Webkul\Payroll\Services\PayslipGenerator;
+use Webkul\Support\Enums\NavigationGroup;
 
 class ProcessPayroll extends Page implements HasForms
 {
@@ -22,7 +23,7 @@ class ProcessPayroll extends Page implements HasForms
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?string $title = 'Process Payroll';

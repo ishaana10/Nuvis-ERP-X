@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Webkul\Security\Models\User;
 use Webkul\Support\Models\Company;
+use Webkul\Support\Models\Country;
 
 class TaxGroupSeeder extends Seeder
 {
@@ -22,7 +23,7 @@ class TaxGroupSeeder extends Seeder
         $user = User::first();
 
         $company = Company::first();
-        $countryId = $company?->country_id ?? \Webkul\Support\Models\Country::first()?->id;
+        $countryId = $company?->country_id ?? Country::first()?->id;
 
         $now = Carbon::now();
 

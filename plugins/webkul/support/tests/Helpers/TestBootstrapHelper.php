@@ -4,6 +4,7 @@ use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Webkul\PluginManager\Models\Plugin;
 use Webkul\PluginManager\Package;
 use Webkul\PluginManager\PackageServiceProvider;
@@ -54,7 +55,7 @@ class TestBootstrapHelper
             if (! $isInstalled) {
                 try {
                     Artisan::call("{$pluginName}:install", ['--no-interaction' => true]);
-                } catch (\Symfony\Component\Console\Exception\CommandNotFoundException $e) {
+                } catch (CommandNotFoundException $e) {
                     Artisan::call('migrate', ['--path' => "plugins/webkul/{$pluginName}/database/migrations", '--force' => true]);
                 }
             }

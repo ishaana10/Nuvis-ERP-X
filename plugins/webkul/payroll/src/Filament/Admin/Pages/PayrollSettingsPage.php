@@ -9,6 +9,7 @@ use Webkul\Account\Models\Account;
 use Webkul\Account\Models\Journal;
 use Webkul\Payroll\Models\PayrollStructure;
 use Webkul\Payroll\Settings\PayrollSettings;
+use Webkul\Support\Enums\NavigationGroup;
 
 class PayrollSettingsPage extends SettingsPage
 {
@@ -16,7 +17,7 @@ class PayrollSettingsPage extends SettingsPage
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?string $title = 'Payroll Settings';

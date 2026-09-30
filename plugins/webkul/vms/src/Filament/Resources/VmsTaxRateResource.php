@@ -63,7 +63,7 @@ class VmsTaxRateResource extends Resource
                     ->searchable(),
                 TextColumn::make('rate')
                     ->label('Rate (%)')
-                    ->formatStateUsing(fn ($state) => number_format($state, 2) . '%'),
+                    ->formatStateUsing(fn ($state) => number_format($state, 2).'%'),
                 TextColumn::make('valid_from')
                     ->label('Valid From')
                     ->dateTime(),

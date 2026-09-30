@@ -22,7 +22,7 @@ return [
             PayrollPeriod::class         => [...$basic, ...$delete, ...$restore, ...$forceDelete],
             PayrollRun::class            => [...$basic, ...$delete, ...$restore, ...$forceDelete],
             Payslip::class               => [...$basic, ...$delete, ...$restore, ...$forceDelete],
-            ContributionRegister::class => [...$basic, ...$delete, ...$restore, ...$forceDelete],
+            ContributionRegister::class  => [...$basic, ...$delete, ...$restore, ...$forceDelete],
         ],
         'exclude' => [],
     ],

@@ -20,8 +20,8 @@ class VmsTaxRate extends Model
     ];
 
     protected $casts = [
-        'rate' => 'decimal:4',
+        'rate'       => 'decimal:4',
         'valid_from' => 'datetime',
-        'is_active' => 'boolean',
+        'is_active'  => 'boolean',
     ];
 }

@@ -12,9 +12,6 @@ class PayrollCalculator
 {
     /**
      * Calculate payslip rule results.
-     *
-     * @param  Payslip  $payslip
-     * @return array
      */
     public function calculate(Payslip $payslip): array
     {

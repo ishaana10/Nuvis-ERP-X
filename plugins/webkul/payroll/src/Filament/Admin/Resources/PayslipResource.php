@@ -23,6 +23,7 @@ use Webkul\Payroll\Models\Payslip;
 use Webkul\Payroll\Services\AccountingPoster;
 use Webkul\Payroll\Services\PayslipGenerator;
 use Webkul\Payroll\Services\PayslipPdfExporter;
+use Webkul\Support\Enums\NavigationGroup;
 
 class PayslipResource extends Resource
 {
@@ -32,7 +33,7 @@ class PayslipResource extends Resource
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?int $navigationSort = 6;

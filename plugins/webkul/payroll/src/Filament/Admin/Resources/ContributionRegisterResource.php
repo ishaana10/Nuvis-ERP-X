@@ -15,6 +15,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Webkul\Payroll\Filament\Admin\Resources\ContributionRegisterResource\Pages\ListContributionRegisters;
 use Webkul\Payroll\Models\ContributionRegister;
+use Webkul\Support\Enums\NavigationGroup;
 
 class ContributionRegisterResource extends Resource
 {
@@ -24,7 +25,7 @@ class ContributionRegisterResource extends Resource
 
     public static function getNavigationGroup(): string|\UnitEnum
     {
-        return \Webkul\Support\Enums\NavigationGroup::Payroll;
+        return NavigationGroup::Payroll;
     }
 
     protected static ?int $navigationSort = 7;
