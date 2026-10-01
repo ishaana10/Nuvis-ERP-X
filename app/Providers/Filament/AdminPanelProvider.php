@@ -68,6 +68,9 @@ class AdminPanelProvider extends PanelProvider
                     ]
                 )->all()
             )
+            ->pages([
+                \App\Filament\Pages\Dashboard::class,
+            ])
             ->plugins([
                 FilamentShieldPlugin::make()
                     ->gridColumns([
