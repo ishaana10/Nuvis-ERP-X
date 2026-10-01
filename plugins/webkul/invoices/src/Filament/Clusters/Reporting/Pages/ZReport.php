@@ -163,7 +163,7 @@ class ZReport extends Page implements HasForms
             $query->where('journal_id', $state['journal_id']);
         }
 
-        $invoices = $query->with(['lines', 'lines.tax', 'partner'])->get();
+        $invoices = $query->with(['lines', 'lines.taxes', 'partner'])->get();
 
         $outInvoices = $invoices->filter(fn ($inv) => ($inv->move_type instanceof MoveType ? $inv->move_type->value : $inv->move_type) === MoveType::OUT_INVOICE->value);
         $outRefunds = $invoices->filter(fn ($inv) => ($inv->move_type instanceof MoveType ? $inv->move_type->value : $inv->move_type) === MoveType::OUT_REFUND->value);
@@ -214,12 +214,12 @@ class ZReport extends Page implements HasForms
         // Tax Breakdown
         $taxBreakdown = [];
         foreach ($invoices as $inv) {
-            foreach ($inv->lines as $line) {
-                if ($line->tax_id && $line->tax) {
-                    $taxName = $line->tax->name;
-                    $taxAmount = $line->tax_amount ?? 0;
+            $invMoveType = $inv->move_type instanceof MoveType ? $inv->move_type->value : $inv->move_type;
 
-                    $invMoveType = $inv->move_type instanceof MoveType ? $inv->move_type->value : $inv->move_type;
+            foreach ($inv->lines as $line) {
+                foreach ($line->taxes as $tax) {
+                    $taxName = $tax->name;
+                    $taxAmount = $line->tax_base_amount ?? 0;
 
                     if ($invMoveType === MoveType::OUT_REFUND->value) {
                         $taxAmount = -$taxAmount;
