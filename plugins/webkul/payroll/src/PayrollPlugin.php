@@ -34,6 +34,10 @@ class PayrollPlugin implements Plugin
                     in: __DIR__.'/Filament/Admin/Pages',
                     for: 'Webkul\\Payroll\\Filament\\Admin\\Pages'
                 )
+                ->discoverClusters(
+                    in: __DIR__.'/Filament/Admin/Clusters',
+                    for: 'Webkul\\Payroll\\Filament\\Admin\\Clusters'
+                )
                 ->discoverWidgets(
                     in: __DIR__.'/Filament/Admin/Widgets',
                     for: 'Webkul\\Payroll\\Filament\\Admin\\Widgets'
