@@ -17,6 +17,7 @@ class PayrollServiceProvider extends PackageServiceProvider
     {
         $package
             ->name(static::$name)
+            ->hasConfigFile('filament-shield')
             ->hasViews()
             ->hasTranslations()
             ->hasMigrations([
