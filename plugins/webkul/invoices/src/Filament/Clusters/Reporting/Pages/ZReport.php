@@ -38,7 +38,7 @@ class ZReport extends Page implements HasForms
 
     protected static function getPagePermission(): ?string
     {
-        return 'page_z_report';
+        return 'page_invoice_z_report';
     }
 
     public static function getNavigationGroup(): ?string
