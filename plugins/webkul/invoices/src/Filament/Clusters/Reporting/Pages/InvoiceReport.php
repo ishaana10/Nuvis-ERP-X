@@ -39,7 +39,7 @@ class InvoiceReport extends Page implements HasForms
 
     protected static function getPagePermission(): ?string
     {
-        return 'page_invoice_report';
+        return 'page_invoice_invoice_report';
     }
 
     public static function getNavigationGroup(): ?string

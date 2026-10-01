@@ -28,7 +28,7 @@ beforeEach(function () {
 
     URL::resolveMissingNamedRoutesUsing(fn () => '#');
 
-    FilamentHelper::actingAs(['page_invoice_report']);
+    FilamentHelper::actingAs(['page_invoice_invoice_report']);
 });
 
 it('renders the invoice report page', function () {

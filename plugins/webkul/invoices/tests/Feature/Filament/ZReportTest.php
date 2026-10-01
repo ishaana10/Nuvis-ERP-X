@@ -29,7 +29,7 @@ beforeEach(function () {
 
     URL::resolveMissingNamedRoutesUsing(fn () => '#');
 
-    FilamentHelper::actingAs(['page_z_report']);
+    FilamentHelper::actingAs(['page_invoice_z_report']);
 });
 
 it('renders the Z report page', function () {
