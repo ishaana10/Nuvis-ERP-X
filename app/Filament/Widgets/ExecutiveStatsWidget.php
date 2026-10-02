@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Webkul\Account\Enums\MoveType;
 use Webkul\Account\Models\Move;
 use Webkul\Invoice\Models\Invoice;
 
@@ -13,16 +14,16 @@ class ExecutiveStatsWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        $totalRevenue = Move::where('type', 'out_invoice')
+        $totalRevenue = Move::where('move_type', MoveType::OUT_INVOICE->value)
             ->where('state', 'posted')
             ->sum('amount_total');
 
-        $pendingInvoices = Move::where('type', 'out_invoice')
+        $pendingInvoices = Move::where('move_type', MoveType::OUT_INVOICE->value)
             ->where('payment_state', 'not_paid')
             ->where('state', 'posted')
             ->count();
 
-        $invoiceIssues = Move::where('type', 'out_invoice')
+        $invoiceIssues = Move::where('move_type', MoveType::OUT_INVOICE->value)
             ->where('payment_state', 'partial')
             ->where('state', 'posted')
             ->count();

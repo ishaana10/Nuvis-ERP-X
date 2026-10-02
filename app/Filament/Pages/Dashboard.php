@@ -8,7 +8,7 @@ use Webkul\Support\Enums\NavigationGroup;
 
 class Dashboard extends BaseDashboard
 {
-    protected static string $routePath = '/';
+    protected static ?string $slug = 'executive-dashboard';
 
     protected static ?string $title = 'Executive Dashboard';
 

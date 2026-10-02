@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use Webkul\Account\Enums\MoveType;
 use Webkul\Account\Models\Move;
 
 class RevenuePerformanceChartWidget extends ChartWidget
@@ -21,7 +22,7 @@ class RevenuePerformanceChartWidget extends ChartWidget
         $targets = [];
 
         foreach (range(1, 12) as $m) {
-            $total = Move::where('type', 'out_invoice')
+            $total = Move::where('move_type', MoveType::OUT_INVOICE->value)
                 ->where('state', 'posted')
                 ->whereMonth('date', $m)
                 ->sum('amount_total');
