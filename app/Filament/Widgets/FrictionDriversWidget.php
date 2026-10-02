@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use Filament\Widgets\Widget;
+use Webkul\Account\Enums\MoveType;
 use Webkul\Account\Models\Move;
 
 class FrictionDriversWidget extends Widget
@@ -15,18 +16,18 @@ class FrictionDriversWidget extends Widget
 
     public function getViewData(): array
     {
-        $overdue = Move::where('type', 'out_invoice')
+        $overdue = Move::where('move_type', MoveType::OUT_INVOICE->value)
             ->where('state', 'posted')
             ->where('payment_state', 'not_paid')
             ->where('invoice_date_due', '<', now())
             ->count();
 
-        $shortPaid = Move::where('type', 'out_invoice')
+        $shortPaid = Move::where('move_type', MoveType::OUT_INVOICE->value)
             ->where('state', 'posted')
             ->where('payment_state', 'partial')
             ->count();
 
-        $unposted = Move::where('type', 'out_invoice')
+        $unposted = Move::where('move_type', MoveType::OUT_INVOICE->value)
             ->where('state', 'draft')
             ->count();
 

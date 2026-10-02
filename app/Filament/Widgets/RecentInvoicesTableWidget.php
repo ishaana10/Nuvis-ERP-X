@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Webkul\Account\Enums\MoveType;
 use Webkul\Account\Models\Move;
 
 class RecentInvoicesTableWidget extends BaseWidget
@@ -18,7 +19,7 @@ class RecentInvoicesTableWidget extends BaseWidget
         return $table
             ->query(
                 Move::query()
-                    ->where('type', 'out_invoice')
+                    ->where('move_type', MoveType::OUT_INVOICE->value)
                     ->latest()
                     ->limit(5)
             )
