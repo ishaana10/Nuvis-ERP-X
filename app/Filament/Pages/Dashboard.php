@@ -4,12 +4,28 @@ namespace App\Filament\Pages;
 
 use BackedEnum;
 use Filament\Pages\Dashboard as BaseDashboard;
+use Webkul\Support\Enums\NavigationGroup;
 
 class Dashboard extends BaseDashboard
 {
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-home';
+    protected static string $routePath = '/';
 
     protected static ?string $title = 'Executive Dashboard';
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Executive Dashboard';
+    }
+
+    public static function getNavigationGroup(): string|\UnitEnum|null
+    {
+        return NavigationGroup::Dashboard;
+    }
+
+    public static function getNavigationIcon(): string|BackedEnum|null
+    {
+        return 'heroicon-o-chart-bar';
+    }
 
     public function getWidgets(): array
     {
