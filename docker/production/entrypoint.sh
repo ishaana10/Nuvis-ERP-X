@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 
-APP_DIR="/var/www/aureuserp"
+APP_DIR="/var/www/nuviserpx"
 cd "$APP_DIR"
 
-log() { echo "[aureus-entrypoint] $(date '+%Y-%m-%d %H:%M:%S') $*"; }
+log() { echo "[nuvis-entrypoint] $(date '+%Y-%m-%d %H:%M:%S') $*"; }
 
 DB_HOST="${DB_HOST:-127.0.0.1}"
 DB_PORT="${DB_PORT:-3306}"
-DB_DATABASE="${DB_DATABASE:-aureus}"
-DB_USERNAME="${DB_USERNAME:-aureus}"
-DB_PASSWORD="${DB_PASSWORD:-aureus}"
+DB_DATABASE="${DB_DATABASE:-nuvis}"
+DB_USERNAME="${DB_USERNAME:-nuvis}"
+DB_PASSWORD="${DB_PASSWORD:-nuvis}"
 
 use_internal_mysql() { [[ "$DB_HOST" == "127.0.0.1" || "$DB_HOST" == "localhost" ]]; }
 

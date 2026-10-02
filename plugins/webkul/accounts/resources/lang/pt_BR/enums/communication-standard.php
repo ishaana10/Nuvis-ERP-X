@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'aureus'   => 'Nuvis',
+    'nuvis'   => 'Nuvis',
     'european' => 'Europeu',
 ];

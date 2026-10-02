@@ -215,7 +215,7 @@ class BillForm
                                                             ->fillForm(fn () => [
                                                                 'type'                     => JournalType::PURCHASE,
                                                                 'invoice_reference_type'   => CommunicationType::INVOICE,
-                                                                'invoice_reference_model'  => CommunicationStandard::AUREUS,
+                                                                'invoice_reference_model'  => CommunicationStandard::NUVIS,
                                                                 'company_id'               => $get('company_id') ?? current_company_id(),
                                                             ])
                                                     )
