@@ -324,7 +324,7 @@ class JournalForm
                                                             ->label(__('accounts::filament/resources/journal.form.tabs.advanced-settings.fields.communication-type')),
                                                         Select::make('invoice_reference_model')
                                                             ->options(CommunicationStandard::class)
-                                                            ->default(CommunicationStandard::AUREUS)
+                                                            ->default(CommunicationStandard::NUVIS)
                                                             ->label(__('accounts::filament/resources/journal.form.tabs.advanced-settings.fields.communication-standard')),
                                                     ]),
                                             ]),

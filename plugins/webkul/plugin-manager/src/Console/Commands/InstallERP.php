@@ -88,7 +88,7 @@ class InstallERP extends Command
 
         $this->markAsInstalled();
 
-        Event::dispatch('aureus.installed');
+        Event::dispatch('nuvis.installed');
 
         $this->warnOnEnvCurrencyMismatch();
 

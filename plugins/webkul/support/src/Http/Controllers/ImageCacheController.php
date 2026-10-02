@@ -20,7 +20,7 @@ class ImageCacheController
      *
      * @var string
      */
-    const AUREUS_LOGO = 'https://updates.nuvistechnologies.com.fj/nuviserpx/aureus.png';
+    const NUVIS_LOGO = 'https://updates.nuvistechnologies.com.fj/nuviserpx/nuvis.png';
 
     /**
      * Get HTTP response of template applied image file
@@ -31,8 +31,8 @@ class ImageCacheController
     public function getImage($filename)
     {
         try {
-            $content = Cache::remember('aureus-logo', 10080, function () {
-                return base64_encode($this->getImageFromUrl(self::AUREUS_LOGO));
+            $content = Cache::remember('nuvis-logo', 10080, function () {
+                return base64_encode($this->getImageFromUrl(self::NUVIS_LOGO));
             });
         } catch (Exception $e) {
             $content = '';

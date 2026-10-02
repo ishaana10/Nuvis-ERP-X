@@ -40,7 +40,7 @@ permissions, admin user), so the container boots ready to use.
 | PHP | 8.4 FPM — bcmath, curl, exif, gd, gmp, intl, mbstring, mysql, soap, xml, zip, imagick |
 | Database | MySQL 8.0 (internal, pre-installed) |
 | Process manager | Supervisor — `mysql` · `php-fpm` · `nginx` · queue worker · scheduler |
-| Application path | `/var/www/aureuserp` |
+| Application path | `/var/www/nuviserpx` |
 
 The image runs in one of two database modes:
 
@@ -57,7 +57,7 @@ docker/production/
 ├── .dockerignore       # build-context exclusions
 ├── build-install.sh    # build-time install — migrates, seeds, bakes the MySQL data dir
 ├── entrypoint.sh       # runtime — applies env overrides, refreshes caches, starts Supervisor
-├── mysql-init.sql      # creates the internal `aureus` database and user
+├── mysql-init.sql      # creates the internal `nuvis` database and user
 ├── nginx.conf          # virtual host
 ├── php.ini             # PHP / OPcache tuning
 ├── php-fpm.conf        # PHP-FPM pool
@@ -74,12 +74,12 @@ image always builds **committed** code. Releases are automated via
 Pull and run the published image:
 
 ```bash
-docker pull webkul/aureuserp:latest
+docker pull nuvis/nuviserpx:latest
 
-docker run -d --name aureuserp -p 80:80 \
-  -v aureus-mysql:/var/lib/mysql \
-  -v aureus-storage:/var/www/aureuserp/storage \
-  webkul/aureuserp:latest
+docker run -d --name nuviserpx -p 80:80 \
+  -v nuvis-mysql:/var/lib/mysql \
+  -v nuvis-storage:/var/www/nuviserpx/storage \
+  nuvis/nuviserpx:latest
 ```
 
 Then open <http://localhost>. To use a different host port, change `-p`, e.g.
@@ -92,10 +92,10 @@ repository root:
 
 ```bash
 # default — clones ishaana10/Nuvis-ERP-X @ master
-docker build -t aureuserp:latest docker/production
+docker build -t nuviserpx:latest docker/production
 
 # a specific branch or tag
-docker build -t aureuserp:1.0.0 \
+docker build -t nuviserpx:1.0.0 \
   --build-arg APP_REF=v1.0.0 \
   docker/production
 ```
@@ -119,26 +119,26 @@ assets, and installs the ERP — it takes several minutes.
 
 ```bash
 # basic
-docker run -d --name aureuserp -p 80:80 aureuserp:latest
+docker run -d --name nuviserpx -p 80:80 nuviserpx:latest
 
 # different host port
-docker run -d --name aureuserp -p 8080:80 aureuserp:latest
+docker run -d --name nuviserpx -p 8080:80 nuviserpx:latest
 
 # foreground (stream logs, no -d)
-docker run --name aureuserp -p 80:80 aureuserp:latest
+docker run --name nuviserpx -p 80:80 nuviserpx:latest
 
 # with environment overrides
-docker run -d --name aureuserp -p 80:80 \
+docker run -d --name nuviserpx -p 80:80 \
   -e APP_URL=https://erp.example.com \
   -e APP_NAME="My Company ERP" \
   -e APP_TIMEZONE=Asia/Kolkata \
-  aureuserp:latest
+  nuviserpx:latest
 
 # with persistent named volumes (recommended)
-docker run -d --name aureuserp -p 80:80 \
-  -v aureus-mysql:/var/lib/mysql \
-  -v aureus-storage:/var/www/aureuserp/storage \
-  aureuserp:latest
+docker run -d --name nuviserpx -p 80:80 \
+  -v nuvis-mysql:/var/lib/mysql \
+  -v nuvis-storage:/var/www/nuviserpx/storage \
+  nuviserpx:latest
 ```
 
 ## Access & default credentials
@@ -173,9 +173,9 @@ See [Build arguments](#build-arguments) above — `APP_REF`, `REPO_URL`,
 | `APP_TIMEZONE` | `UTC` | Application timezone |
 | `DB_HOST` | `127.0.0.1` | Database host — see [Database modes](#database-modes) |
 | `DB_PORT` | `3306` | Database port |
-| `DB_DATABASE` | `aureus` | Database name |
-| `DB_USERNAME` | `aureus` | Database user |
-| `DB_PASSWORD` | `aureus` | Database password |
+| `DB_DATABASE` | `nuvis` | Database name |
+| `DB_USERNAME` | `nuvis` | Database user |
+| `DB_PASSWORD` | `nuvis` | Database password |
 
 ## HTTP vs HTTPS
 
@@ -184,10 +184,10 @@ default — correct for a live site behind TLS). For **local testing over plain
 HTTP**, run with `APP_ENV=local`:
 
 ```bash
-docker run -d --name aureuserp -p 8080:80 \
+docker run -d --name nuviserpx -p 8080:80 \
   -e APP_ENV=local \
   -e APP_URL=http://localhost:8080 \
-  aureuserp:latest
+  nuviserpx:latest
 ```
 
 The image has no built-in TLS — terminate HTTPS at a reverse proxy or load
@@ -206,23 +206,23 @@ Set `DB_HOST` to a non-local address; the internal MySQL then stays off and the
 entrypoint waits up to 60 s for the external server.
 
 ```bash
-docker run -d --name aureuserp -p 80:80 \
-  -v aureus-storage:/var/www/aureuserp/storage \
+docker run -d --name nuviserpx -p 80:80 \
+  -v nuvis-storage:/var/www/nuviserpx/storage \
   -e DB_HOST=db.example.com \
   -e DB_PORT=3306 \
-  -e DB_DATABASE=aureus \
-  -e DB_USERNAME=aureus \
+  -e DB_DATABASE=nuvis \
+  -e DB_USERNAME=nuvis \
   -e DB_PASSWORD=a-strong-password \
   -e APP_URL=https://erp.example.com \
-  aureuserp:latest
+  nuviserpx:latest
 ```
 
 Create the database and user on the external server first:
 
 ```sql
-CREATE DATABASE aureus CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'aureus'@'%' IDENTIFIED BY 'a-strong-password';
-GRANT ALL PRIVILEGES ON aureus.* TO 'aureus'@'%';
+CREATE DATABASE nuvis CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'nuvis'@'%' IDENTIFIED BY 'a-strong-password';
+GRANT ALL PRIVILEGES ON nuvis.* TO 'nuvis'@'%';
 FLUSH PRIVILEGES;
 ```
 
@@ -230,7 +230,7 @@ An external database is **not pre-installed**. Run the installer against it once
 (`APP_ENV` is overridden so the production guard does not block the migrations):
 
 ```bash
-docker exec -e APP_ENV=local aureuserp \
+docker exec -e APP_ENV=local nuviserpx \
   php artisan erp:install --force --no-interaction \
   --admin-name=Administrator \
   --admin-email=admin@example.com \
@@ -246,8 +246,8 @@ installed data).
 
 | Volume | Container path | Purpose |
 |---|---|---|
-| `aureus-mysql` | `/var/lib/mysql` | Database files |
-| `aureus-storage` | `/var/www/aureuserp/storage` | Uploads, logs, sessions, app state |
+| `nuvis-mysql` | `/var/lib/mysql` | Database files |
+| `nuvis-storage` | `/var/www/nuviserpx/storage` | Uploads, logs, sessions, app state |
 
 Without volumes the container is ephemeral — all data is lost on `docker rm`.
 
@@ -272,14 +272,14 @@ is baked into the image, so the container boots instantly with no setup.
 
 The image runs on both **`amd64`** and **`arm64`** — every base image and
 package source supports both. Published images on Docker Hub
-(`webkul/aureuserp`) are multi-arch, so `docker pull` / `docker run` selects the
+(`nuvis/nuviserpx`) are multi-arch, so `docker pull` / `docker run` selects the
 right architecture automatically.
 
 To build a multi-arch image yourself:
 
 ```bash
 docker buildx build --platform linux/amd64,linux/arm64 \
-  -t webkul/aureuserp:latest --push docker/production
+  -t nuvis/nuviserpx:latest --push docker/production
 ```
 
 A multi-arch image must be pushed to a registry — the local Docker daemon cannot
@@ -291,51 +291,51 @@ The image is immutable (`opcache.validate_timestamps=0`), so a new version means
 a new image:
 
 ```bash
-docker pull webkul/aureuserp:latest        # or rebuild locally
-docker stop aureuserp && docker rm aureuserp
-docker run -d --name aureuserp -p 80:80 \
-  -v aureus-mysql:/var/lib/mysql \
-  -v aureus-storage:/var/www/aureuserp/storage \
-  webkul/aureuserp:latest
+docker pull nuvis/nuviserpx:latest        # or rebuild locally
+docker stop nuviserpx && docker rm nuviserpx
+docker run -d --name nuviserpx -p 80:80 \
+  -v nuvis-mysql:/var/lib/mysql \
+  -v nuvis-storage:/var/www/nuviserpx/storage \
+  nuvis/nuviserpx:latest
 ```
 
-When the `aureus-mysql` volume is reused, apply any new migrations:
+When the `nuvis-mysql` volume is reused, apply any new migrations:
 
 ```bash
-docker exec aureuserp php artisan migrate --force
+docker exec nuviserpx php artisan migrate --force
 ```
 
 Back up the database volume before upgrading:
 
 ```bash
-docker run --rm -v aureus-mysql:/data -v "$(pwd)":/backup alpine \
-  tar czf /backup/aureus-mysql-backup.tar.gz /data
+docker run --rm -v nuvis-mysql:/data -v "$(pwd)":/backup alpine \
+  tar czf /backup/nuvis-mysql-backup.tar.gz /data
 ```
 
 ## Common commands
 
 ```bash
 # logs
-docker logs aureuserp
-docker logs -f --tail 100 aureuserp
+docker logs nuviserpx
+docker logs -f --tail 100 nuviserpx
 
 # shell
-docker exec -it aureuserp bash
+docker exec -it nuviserpx bash
 
 # service status / restart
-docker exec aureuserp supervisorctl status
-docker exec aureuserp supervisorctl restart nginx
+docker exec nuviserpx supervisorctl status
+docker exec nuviserpx supervisorctl restart nginx
 
 # artisan
-docker exec aureuserp php artisan about
-docker exec aureuserp php artisan migrate --force
+docker exec nuviserpx php artisan about
+docker exec nuviserpx php artisan migrate --force
 
 # stop / remove
-docker stop aureuserp
-docker rm aureuserp
+docker stop nuviserpx
+docker rm nuviserpx
 
 # wipe persistent data
-docker volume rm aureus-mysql aureus-storage
+docker volume rm nuvis-mysql nuvis-storage
 ```
 
 ## Health check
@@ -348,11 +348,11 @@ status with `docker ps` or `docker inspect`.
 | Symptom | Cause & fix |
 |---|---|
 | Port 80 already in use | Run with `-p 8080:80`; find the conflict with `sudo lsof -i :80` |
-| Container exits / MySQL won't start | A corrupt `aureus-mysql` volume — recreate it: `docker volume rm aureus-mysql` |
+| Container exits / MySQL won't start | A corrupt `nuvis-mysql` volume — recreate it: `docker volume rm nuvis-mysql` |
 | `404` on a `.js`/asset that should work, "from disk cache" | A stale browser cache — hard-reload (Ctrl/Cmd+Shift+R) or use a private window |
 | HTTPS redirect on local HTTP | Run with `-e APP_ENV=local` — see [HTTP vs HTTPS](#http-vs-https) |
 | External DB connection fails | Verify the server is reachable and the database/user exist; for a DB on the host use `host.docker.internal` |
-| Services not running | `docker exec aureuserp supervisorctl status`; restart with `supervisorctl restart <name>` |
+| Services not running | `docker exec nuviserpx supervisorctl status`; restart with `supervisorctl restart <name>` |
 | Queue worker restarts at cold start | Expected for a few seconds until MySQL is ready — Supervisor retries automatically |
 | `mysqld` fails to initialise during build | Some hosts enforce AppArmor on `mysqld`; build on a host without that restriction |
 
