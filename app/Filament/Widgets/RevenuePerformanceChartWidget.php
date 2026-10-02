@@ -10,6 +10,11 @@ class RevenuePerformanceChartWidget extends ChartWidget
 {
     protected static ?int $sort = 3;
 
+    protected int | string | array $columnSpan = [
+        'default' => 1,
+        'lg' => 2,
+    ];
+
     public function getHeading(): ?string
     {
         return 'Revenue Performance vs Baseline Target';

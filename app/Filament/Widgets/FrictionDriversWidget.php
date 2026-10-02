@@ -10,9 +10,12 @@ class FrictionDriversWidget extends Widget
 {
     protected string $view = 'filament.widgets.friction-drivers-widget';
 
-    protected static ?int $sort = 5;
+    protected static ?int $sort = 4;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int | string | array $columnSpan = [
+        'default' => 1,
+        'lg' => 1,
+    ];
 
     public function getViewData(): array
     {

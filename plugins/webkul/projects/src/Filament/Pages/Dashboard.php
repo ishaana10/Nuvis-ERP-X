@@ -26,6 +26,8 @@ class Dashboard extends BaseDashboard
     use BaseDashboard\Concerns\HasFiltersForm;
     use HasPageShield;
 
+    protected static ?string $slug = 'project';
+
     protected static string $routePath = 'project';
 
     protected static function getPagePermission(): ?string

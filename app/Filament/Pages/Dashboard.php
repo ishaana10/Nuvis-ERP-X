@@ -8,7 +8,9 @@ use Webkul\Support\Enums\NavigationGroup;
 
 class Dashboard extends BaseDashboard
 {
-    protected static ?string $slug = 'executive-dashboard';
+    protected static string $routePath = '/';
+
+    protected static ?string $slug = 'dashboard';
 
     protected static ?string $title = 'Executive Dashboard';
 
@@ -27,14 +29,23 @@ class Dashboard extends BaseDashboard
         return 'heroicon-o-chart-bar';
     }
 
+    public function getColumns(): int | array
+    {
+        return [
+            'default' => 1,
+            'md' => 2,
+            'lg' => 3,
+        ];
+    }
+
     public function getWidgets(): array
     {
         return [
             \App\Filament\Widgets\ExecutiveStatsWidget::class,
             \App\Filament\Widgets\InvoiceFunnelWidget::class,
             \App\Filament\Widgets\RevenuePerformanceChartWidget::class,
-            \App\Filament\Widgets\RecentInvoicesTableWidget::class,
             \App\Filament\Widgets\FrictionDriversWidget::class,
+            \App\Filament\Widgets\RecentInvoicesTableWidget::class,
         ];
     }
 }
