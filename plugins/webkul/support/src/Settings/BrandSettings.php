@@ -6,6 +6,16 @@ use Spatie\LaravelSettings\Settings;
 
 class BrandSettings extends Settings
 {
+    public ?string $app_name;
+
+    public ?string $theme_preset;
+
+    public ?string $font_family;
+
+    public ?string $footer_text;
+
+    public ?string $custom_css;
+
     public ?string $primary_color;
 
     public ?string $gray_color;

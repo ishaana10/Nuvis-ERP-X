@@ -7,6 +7,8 @@ use Filament\Facades\Filament;
 use Filament\Support\Colors\Color;
 use Filament\Support\Colors\ColorManager;
 use Filament\Support\Facades\FilamentColor;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,6 +101,40 @@ class ApplyBrandSettings
 
             if (! empty($brand->logo_height)) {
                 $panel->brandLogoHeight($brand->logo_height);
+            }
+
+            if (! empty($brand->app_name)) {
+                $panel->brandName($brand->app_name);
+            }
+
+            if (! empty($brand->font_family) && $brand->font_family !== 'inter') {
+                $fontMap = [
+                    'plus_jakarta_sans' => "'Plus Jakarta Sans', sans-serif",
+                    'roboto'            => "'Roboto', sans-serif",
+                    'outfit'            => "'Outfit', sans-serif",
+                    'system'            => "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+                ];
+                $fontCSS = $fontMap[$brand->font_family] ?? null;
+                if ($fontCSS) {
+                    FilamentView::registerRenderHook(
+                        PanelsRenderHook::HEAD_END,
+                        fn (): string => "<style>:root, body, .fi-body { font-family: {$fontCSS} !important; }</style>"
+                    );
+                }
+            }
+
+            if (! empty($brand->custom_css)) {
+                FilamentView::registerRenderHook(
+                    PanelsRenderHook::HEAD_END,
+                    fn (): string => '<style>'.e($brand->custom_css).'</style>'
+                );
+            }
+
+            if (! empty($brand->footer_text)) {
+                FilamentView::registerRenderHook(
+                    PanelsRenderHook::FOOTER,
+                    fn (): string => '<div class="py-4 text-center text-xs text-gray-500 dark:text-gray-400">'.e($brand->footer_text).'</div>'
+                );
             }
         } catch (Throwable) {
         }
