@@ -6,14 +6,14 @@ use Filament\Support\Contracts\HasLabel;
 
 enum CommunicationStandard: string implements HasLabel
 {
-    case AUREUS = 'aureus';
+    case NUVIS = 'nuvis';
 
     case EUROPEAN = 'european';
 
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::AUREUS   => __('accounts::enums/communication-standard.aureus'),
+            self::NUVIS    => __('accounts::enums/communication-standard.nuvis'),
             self::EUROPEAN => __('accounts::enums/communication-standard.european'),
         };
     }
@@ -21,7 +21,7 @@ enum CommunicationStandard: string implements HasLabel
     public static function options(): array
     {
         return [
-            self::AUREUS->value   => __('accounts::enums/communication-standard.aureus'),
+            self::NUVIS->value    => __('accounts::enums/communication-standard.nuvis'),
             self::EUROPEAN->value => __('accounts::enums/communication-standard.european'),
         ];
     }

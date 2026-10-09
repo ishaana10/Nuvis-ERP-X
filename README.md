@@ -1,9 +1,9 @@
 <p align="center">
   <a href="https://nuvistechnologies.com.fj/nuviserpx">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-dark.png">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-light.png">
-      <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/aureus-logo-light.png" alt="Nuvis ERP X logo">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/aureus-logo-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/aureus-logo-light.png">
+      <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/aureus-logo-light.png" alt="Nuvis ERP X logo">
     </picture>
   </a>  
 </p>
@@ -44,7 +44,7 @@
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/introduction.png" alt="Nuvis ERP X Introduction" width="100%">
+  <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/introduction.png" alt="Nuvis ERP X Introduction" width="100%">
 </p>
 
 ## 🚀 Introduction
@@ -61,63 +61,63 @@ Whether you're managing accounting, inventory, HR, CRM, or projects, Nuvis ERP X
   Built with Laravel 13 and FilamentPHP 5 for maximum performance and developer experience.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/mordern-architecture.png" alt="Modern Architecture" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/mordern-architecture.png" alt="Modern Architecture" width="100%">
   </p>
 
   ### 🧩 Modular Plugin System
   Install only the features you need - from accounting to project management.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/modular-plugin-system.png" alt="Modular Plugin System" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/modular-plugin-system.png" alt="Modular Plugin System" width="100%">
   </p>
 
   ### 🎨 Beautiful UI/UX
   Responsive design with TailwindCSS 4, optimized for desktop and mobile.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/mordern-ui-responsive-design.png" alt="Beautiful UI/UX" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/mordern-ui-responsive-design.png" alt="Beautiful UI/UX" width="100%">
   </p>
 
   ### 🔐 Advanced Security
   Role-based access control with Filament Shield integration.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/advanced-security.png" alt="Advanced Security" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/advanced-security.png" alt="Advanced Security" width="100%">
   </p>
 
   ### 📊 Business Intelligence
   Built-in analytics and reporting tools.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/business-intelligence.png" alt="Business Intelligence" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/business-intelligence.png" alt="Business Intelligence" width="100%">
   </p>
 
   ### 🌐 Multi-Language Support
   Easily translate and localize for global businesses.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/multi-language-support.png" alt="Multi-Language Support" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/multi-language-support.png" alt="Multi-Language Support" width="100%">
   </p>
 
   ### ⚡ High Performance
   Optimized database queries and caching strategies.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/high-performance.png" alt="High Performance" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/high-performance.png" alt="High Performance" width="100%">
   </p>
 
   ### 🔧 Developer-Friendly
   Clean code, comprehensive documentation, and extensive APIs.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/developer-friendly.png" alt="Developer-Friendly" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/developer-friendly.png" alt="Developer-Friendly" width="100%">
   </p>
 
   ### 🔄 Real-Time Updates
   LiveWire 4 integration for dynamic interfaces.
 
   <p align="center">
-    <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/real-time-updates.png" alt="Real-Time Updates" width="100%">
+    <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/real-time-updates.png" alt="Real-Time Updates" width="100%">
   </p>
 
 ---
@@ -165,7 +165,7 @@ Get Nuvis ERP X up and running in just 4 simple steps:
 
 ```bash
 git clone https://github.com/ishaana10/Nuvis-ERP-X.git
-cd aureuserp
+cd Nuvis-ERP-X
 ```
 
 ### Step 2: Install Dependencies
@@ -201,7 +201,7 @@ Visit `http://localhost:8000` and log in with your admin credentials!
 ## ☁️ Nuvis ERP X Cloud Hosting
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aureuserp/temp-media/main/cloud-hosting.png" alt="Nuvis ERP X Cloud Hosting" width="100%">
+  <img src="https://raw.githubusercontent.com/ishaana10/Nuvis-ERP-X/main/cloud-hosting.png" alt="Nuvis ERP X Cloud Hosting" width="100%">
 </p>
 
 [Nuvis ERP X Cloud Hosting](https://nuvistechnologies.com.fj/nuviserpx/cloud-hosting/) is a fully managed hosting solution where our team sets up, secures, and configures your Nuvis ERP X on reliable infrastructure.
@@ -420,7 +420,7 @@ Security is a top priority for Nuvis ERP X. We take all security vulnerabilities
 
 If you discover a security vulnerability in Nuvis ERP X, please report it responsibly:
 
-📧 **Email:** support@webkul.com
+📧 **Email:** support@nuvistechnologies.com.fj
 
 ### What to Include
 - Description of the vulnerability
@@ -443,7 +443,7 @@ Need help or want to connect with other Nuvis ERP X users?
 ### 🤝 Get Support
 - 💬 **Community Forum:** [Coming Soon] - Connect with other users and share experiences
 - 🐛 **Issue Tracker:** [GitHub Issues](https://github.com/ishaana10/Nuvis-ERP-X/issues) - Report bugs and request features
-- 📧 **Email Support:** support@webkul.com - Direct support from the team
+- 📧 **Email Support:** support@nuvistechnologies.com.fj - Direct support from the team
 
 ### 🔔 Stay Updated
 - ⭐ **Star** this repository to show your support
@@ -454,7 +454,7 @@ Need help or want to connect with other Nuvis ERP X users?
 
 <div align="center">
 
-Made with ❤️ by [Webkul](https://webkul.com)
+Made with ❤️ by [Nuvis Technologies](https://nuvistechnologies.com.fj)
 
 [⬆ Back to Top](#-table-of-contents)
 

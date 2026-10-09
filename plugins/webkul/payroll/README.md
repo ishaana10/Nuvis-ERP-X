@@ -1,6 +1,6 @@
 # Nuvis ERP X - Payroll Management Plugin
 
-The **Payroll Plugin** (`webkul/payroll`) provides comprehensive, enterprise-grade payroll management for AureusERP / Nuvis ERP X. Built on Laravel 11, PHP 8.3, and Filament v4, it seamlessly integrates salary structures, customizable salary rules, contract management, automated batch payslip computation, PDF exports, statutory contribution tracking, and double-entry accounting journal posting.
+The **Payroll Plugin** (`webkul/payroll`) provides comprehensive, enterprise-grade payroll management for Nuvis ERP X / Nuvis ERP X. Built on Laravel 11, PHP 8.3, and Filament v4, it seamlessly integrates salary structures, customizable salary rules, contract management, automated batch payslip computation, PDF exports, statutory contribution tracking, and double-entry accounting journal posting.
 
 ---
 
