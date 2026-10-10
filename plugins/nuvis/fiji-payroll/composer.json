@@ -5,13 +5,18 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Nuvis ERP X Support",
+            "name": "Nuvis Technologies",
             "email": "support@nuvistechnologies.com.fj"
         }
     ],
     "autoload": {
         "psr-4": {
             "Nuvis\\FijiPayroll\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nuvis\\FijiPayroll\\Tests\\": "tests/"
         }
     },
     "extra": {

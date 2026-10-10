@@ -1,12 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Nuvis\FijiPayroll\Models\SalarySlip;
+use Nuvis\FijiPayroll\Http\Controllers\PayslipController;
 
 Route::middleware(['web', 'auth'])->group(function () {
-    Route::get('fiji-payroll/payslip/{id}', function ($id) {
-        $slip = SalarySlip::with(['payrollRun', 'employee'])->findOrFail($id);
-
-        return view('fiji-payroll::salary-slip', ['slip' => $slip]);
-    })->name('fiji-payroll.payslip');
+    Route::get('/fiji-payroll/payslip/{salarySlip}/pdf', [PayslipController::class, 'pdf'])
+        ->name('fiji-payroll.payslip.pdf');
 });

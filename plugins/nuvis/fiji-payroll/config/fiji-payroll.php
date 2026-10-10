@@ -1,65 +1,93 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
-    | FNPF (Fiji National Provident Fund) Rates
+    | Employee Model
     |--------------------------------------------------------------------------
-    |
-    | FNPF contributions for eligible wage bases.
-    |
+    | Used by the Process Payroll multi-select. Point this at your Employees
+    | model (must be an Eloquent model).
+    */
+    'employee_model' => env('FIJI_EMPLOYEE_MODEL', \Webkul\Employee\Models\Employee::class),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Employer Identifiers (for exports)
+    |--------------------------------------------------------------------------
+    */
+    "employer_tin" => env("FIJI_EMPLOYER_TIN", ""),
+    "employer_fnpf_reference" => env("FIJI_EMPLOYER_FNPF_REF", ""),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | FNPF Contribution Rates (as of 1 August 2026 – 31 July 2027)
+    |--------------------------------------------------------------------------
+    | Temporary reduction of employer rate from 10% to 8%.
+    | Employee remains 8%. Combined 16%.
+    | Update these values when rates change.
     */
     'fnpf' => [
-        'employee_rate'  => 0.08, // 8%
-        'employer_rate'  => 0.08, // 8%
-        'effective_from' => '2026-08-01',
-        'effective_to'   => '2027-07-31',
+        'employee_rate' => 0.08,   // 8%
+        'employer_rate' => 0.08,   // 8% (temporary until 31 Jul 2027)
+        'include_overtime' => true,
+        'include_allowances' => true, // most ordinary allowances are included
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | PAYE Tax Rates & Brackets (Annualized Rules)
+    | PAYE Tax Brackets (Resident Individuals – simplified progressive)
     |--------------------------------------------------------------------------
-    |
-    | Resident progressive brackets and non-resident flat rate.
-    |
+    | Based on current FRCS structure.
+    | Amounts are annual. Calculator converts period amounts to annual equivalent.
     */
     'paye' => [
-        'non_resident_rate' => 0.20, // 20%
-        'resident_brackets' => [
-            [
-                'threshold' => 30000,
-                'rate'      => 0.00,
-                'base_tax'  => 0,
-            ],
-            [
-                'threshold' => 50000,
-                'rate'      => 0.18,
-                'base_tax'  => 0,
-            ],
-            [
-                'threshold' => 270000,
-                'rate'      => 0.20,
-                'base_tax'  => 3600,
-            ],
-            [
-                'threshold' => INF,
-                'rate'      => 0.39, // Includes SRT / top bracket approximation
-                'base_tax'  => 47600,
-            ],
+        'tax_free_threshold' => 30000, // FJD
+
+        'brackets' => [
+            // [min annual, max annual, rate, fixed amount for this band]
+            ['min' => 0,       'max' => 30000,  'rate' => 0.00, 'fixed' => 0],
+            ['min' => 30001,   'max' => 50000,  'rate' => 0.18, 'fixed' => 0],
+            ['min' => 50001,   'max' => 270000, 'rate' => 0.20, 'fixed' => 3600],
+            // Higher bands incorporate SRT – extend as needed
+            ['min' => 270001,  'max' => null,   'rate' => 0.20, 'fixed' => 47600], // base + SRT handling recommended separately
         ],
+
+        // Social Responsibility Tax & ECAL thresholds
+        'srt_threshold' => 270000,
+        'srt_rate' => 0.13,
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Statutory Levies
+    | Other Levies (optional / configurable)
     |--------------------------------------------------------------------------
-    |
-    | Employer statutory levies.
-    |
     */
     'levies' => [
-        'workcare_rate' => 0.01, // 1%
-        'training_rate' => 0.01, // 1%
+        'workcare_rate' => 0.01,          // ~1% accident compensation
+        'training_levy_rate' => 0.01,     // Fiji National Training levy
+        'enable_workcare' => true,
+        'enable_training_levy' => true,  // enable per company setting
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payroll Settings
+    |--------------------------------------------------------------------------
+    */
+    'currency' => 'FJD',
+    'default_pay_frequency' => 'monthly', // monthly | fortnightly | weekly
+    'payslip_template' => 'fiji-payroll::payslip',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reporting Deadlines (informational)
+    |--------------------------------------------------------------------------
+    */
+    'deadlines' => [
+        'fnpf_schedule' => 14,        // day of following month
+        'paye_remittance' => 'last_day', // last day of following month
     ],
 ];

@@ -2,7 +2,7 @@
 
 namespace Nuvis\FijiPayroll\Filament\Resources\PayrollRunResource\Pages;
 
-use Filament\Actions\CreateAction;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Nuvis\FijiPayroll\Filament\Resources\PayrollRunResource;
 
@@ -13,7 +13,7 @@ class ListPayrollRuns extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            Actions\CreateAction::make(),
         ];
     }
 }

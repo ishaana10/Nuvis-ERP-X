@@ -4,72 +4,100 @@ namespace Nuvis\FijiPayroll\Services;
 
 use Nuvis\FijiPayroll\Enums\PayFrequency;
 
+/**
+ * Main Fiji Payroll Calculator
+ *
+ * Orchestrates FNPF + PAYE (with SRT) + levies to produce a complete payslip calculation.
+ */
 class PayrollCalculator
 {
-    protected FnpfService $fnpfService;
+    public function __construct(
+        protected FnpfService $fnpf,
+        protected PayeCalculator $paye
+    ) {}
 
-    protected PayeCalculator $payeCalculator;
-
-    public function __construct(?FnpfService $fnpfService = null, ?PayeCalculator $payeCalculator = null)
+    /**
+     * Calculate a full payroll result for one employee for one period.
+     */
+    public function calculate(array $input): array
     {
-        $this->fnpfService = $fnpfService ?? new FnpfService;
-        $this->payeCalculator = $payeCalculator ?? new PayeCalculator;
-    }
+        $basic        = (float) ($input['basic'] ?? 0);
+        $overtime     = (float) ($input['overtime'] ?? 0);
+        $allowances   = (float) ($input['allowances'] ?? 0);
+        $other        = (float) ($input['other_ordinary'] ?? 0);
+        $otherDeds    = (float) ($input['deductions'] ?? 0);
+        $isResident   = (bool)  ($input['is_resident'] ?? true);
+        $frequency    = $input['frequency'] ?? PayFrequency::Monthly;
 
-    public function calculate(array $data): array
-    {
-        $basic = max(0, (float) ($data['basic'] ?? 0));
-        $overtime = max(0, (float) ($data['overtime'] ?? 0));
-        $allowances = max(0, (float) ($data['allowances'] ?? 0));
+        $gross = round($basic + $overtime + $allowances + $other, 2);
 
-        $isResident = (bool) ($data['is_resident'] ?? true);
-        $frequency = PayFrequency::fromValue($data['frequency'] ?? PayFrequency::Monthly);
+        $fnpfBase = $this->fnpf->getEligibleWageBase([
+            'basic' => $basic,
+            'overtime' => $overtime,
+            'allowances' => $allowances,
+            'other_ordinary' => $other,
+        ]);
 
-        $gross = round($basic + $overtime + $allowances, 2);
+        $employeeFnpf = $this->fnpf->calculateEmployeeContribution($fnpfBase);
+        $employerFnpf = $this->fnpf->calculateEmployerContribution($fnpfBase);
 
-        $eligibleWage = $this->fnpfService->getEligibleWageBase($basic, $overtime, $allowances);
-        $fnpfEmployee = $this->fnpfService->calculateEmployeeContribution($eligibleWage);
-        $fnpfEmployer = $this->fnpfService->calculateEmployerContribution($eligibleWage);
+        // Employee FNPF is deductible for PAYE purposes
+        $taxableIncome = max(0, $gross - $employeeFnpf);
 
-        $taxableIncome = max(0, round($gross - $fnpfEmployee, 2));
+        $payeResult = $this->paye->calculate(
+            taxableIncome: $taxableIncome,
+            frequency: $frequency,
+            isResident: $isResident
+        );
 
-        $paye = $this->payeCalculator->calculateTax($taxableIncome, $isResident, $frequency);
+        $payeAmount = $payeResult['paye'];
 
-        $workcareRate = (float) config('fiji-payroll.levies.workcare_rate', 0.01);
-        $trainingRate = (float) config('fiji-payroll.levies.training_rate', 0.01);
+        $workcare = 0.0;
+        $trainingLevy = 0.0;
 
-        $workcareLevy = round($gross * $workcareRate, 2);
-        $trainingLevy = round($gross * $trainingRate, 2);
+        if (config('fiji-payroll.levies.enable_workcare', true)) {
+            $workcare = round($gross * config('fiji-payroll.levies.workcare_rate', 0.01), 2);
+        }
 
-        $netPay = max(0, round($gross - $fnpfEmployee - $paye, 2));
+        if (config('fiji-payroll.levies.enable_training_levy', true)) {
+            $trainingLevy = round($gross * config('fiji-payroll.levies.training_levy_rate', 0.01), 2);
+        }
 
-        $totalEmployerCost = round($gross + $fnpfEmployer + $workcareLevy + $trainingLevy, 2);
-
-        $rateSnapshot = [
-            'fnpf_employee_rate' => $this->fnpfService->getEmployeeRate(),
-            'fnpf_employer_rate' => $this->fnpfService->getEmployerRate(),
-            'workcare_rate'      => $workcareRate,
-            'training_rate'      => $trainingRate,
-            'pay_frequency'      => $frequency->value,
-            'is_resident'        => $isResident,
-            'calculated_at'      => now()->toIso8601String(),
-        ];
+        $netPay = round($gross - $employeeFnpf - $payeAmount - $otherDeds, 2);
+        $employerCost = round($gross + $employerFnpf + $workcare + $trainingLevy, 2);
 
         return [
-            'basic'               => $basic,
-            'overtime'            => $overtime,
-            'allowances'          => $allowances,
-            'gross'               => $gross,
-            'eligible_wage_base'  => $eligibleWage,
-            'fnpf_employee'       => $fnpfEmployee,
-            'fnpf_employer'       => $fnpfEmployer,
-            'taxable_income'      => $taxableIncome,
-            'paye'                => $paye,
-            'workcare_levy'       => $workcareLevy,
-            'training_levy'       => $trainingLevy,
-            'net_pay'             => $netPay,
-            'total_employer_cost' => $totalEmployerCost,
-            'rate_snapshot'       => $rateSnapshot,
+            'gross' => $gross,
+            'fnpf_base' => $fnpfBase,
+            'employee_fnpf' => $employeeFnpf,
+            'fnpf_employee' => $employeeFnpf,
+            'employer_fnpf' => $employerFnpf,
+            'fnpf_employer' => $employerFnpf,
+            'total_fnpf' => $employeeFnpf + $employerFnpf,
+            'taxable_income' => $taxableIncome,
+            'paye' => $payeAmount,
+            'basic_tax' => $payeResult['basic_tax'] ?? $payeAmount,
+            'srt' => $payeResult['srt'] ?? 0.0,
+            'other_deductions' => $otherDeds,
+            'net_pay' => $netPay,
+            'workcare_levy' => $workcare,
+            'training_levy' => $trainingLevy,
+            'employer_cost' => $employerCost,
+            'total_employer_cost' => $employerCost,
+            'paye_details' => $payeResult,
+            'rates' => [
+                'employee_fnpf_rate' => $this->fnpf->getEmployeeRate(),
+                'employer_fnpf_rate' => $this->fnpf->getEmployerRate(),
+            ],
         ];
+    }
+
+    public function exampleMonthly(float $grossSalary): array
+    {
+        return $this->calculate([
+            'basic' => $grossSalary,
+            'is_resident' => true,
+            'frequency' => PayFrequency::Monthly,
+        ]);
     }
 }
