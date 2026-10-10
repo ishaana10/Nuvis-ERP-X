@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Webkul\Security\Models\User;
 use Webkul\Support\Models\Company;
+use Webkul\Support\Settings\MultiTenantSettings;
 
 class CompanyContext
 {
@@ -60,7 +61,22 @@ class CompanyContext
 
     public function defaultId(): ?int
     {
-        return $this->internalUser()?->default_company_id;
+        $userDefault = $this->internalUser()?->default_company_id;
+
+        if ($userDefault) {
+            return $userDefault;
+        }
+
+        try {
+            $multiSettings = settings(MultiTenantSettings::class);
+
+            if ($multiSettings->default_tenant_id) {
+                return $multiSettings->default_tenant_id;
+            }
+        } catch (\Throwable) {
+        }
+
+        return null;
     }
 
     public function activeIds(): array
@@ -81,7 +97,20 @@ class CompanyContext
 
         $active = array_values(array_intersect($stored, $allowed));
 
-        return empty($active) ? [$allowed[0]] : $active;
+        if (empty($active)) {
+            $active = [$allowed[0]];
+        }
+
+        try {
+            $multiSettings = settings(MultiTenantSettings::class);
+
+            if ($multiSettings->tenant_switch_mode === 'single' && count($active) > 1) {
+                return [$active[0]];
+            }
+        } catch (\Throwable) {
+        }
+
+        return $active;
     }
 
     public function currentId(): ?int

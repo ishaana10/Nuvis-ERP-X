@@ -53,7 +53,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Webkul\\Payroll\\": "plugins/webkul/payroll/src/",
-            "Webkul\\Vms\\": "plugins/webkul/vms/src/"
+            "Webkul\\Vms\\": "plugins/webkul/vms/src/",
+            "Nuvis\\FijiPayroll\\": "plugins/nuvis/fiji-payroll/src/"
         }
     },
     "autoload-dev": {

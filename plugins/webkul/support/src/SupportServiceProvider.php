@@ -24,6 +24,7 @@ use Webkul\Support\Database\Dialects\SqliteDialect;
 use Webkul\Support\Http\Controllers\CompanyContextController;
 use Webkul\Support\Livewire\QuickNavigation;
 use Webkul\Support\Services\CompanyContext;
+use Webkul\Support\Settings\MultiTenantSettings;
 use Webkul\Support\Traits\HasFilamentDefaults;
 use Webkul\Support\Traits\HasRouterMacros;
 use Webkul\Support\Traits\HasRtlSupport;
@@ -85,6 +86,8 @@ class SupportServiceProvider extends PackageServiceProvider
             ->runsMigrations()
             ->hasSettings([
                 '2026_06_12_000001_create_brand_settings',
+                '2026_07_01_000001_create_multi_tenant_settings',
+                '2026_07_02_000001_extend_brand_settings',
             ])
             ->runsSettings()
             ->hasSeeder('Webkul\\Support\\Database\\Seeders\\DatabaseSeeder');
@@ -115,6 +118,14 @@ class SupportServiceProvider extends PackageServiceProvider
             function (): string {
                 if (filament()->getCurrentPanel()?->getId() !== 'admin') {
                     return '';
+                }
+
+                try {
+                    $tenantSettings = settings(MultiTenantSettings::class);
+                    if (! $tenantSettings->enable_multi_tenancy || ! $tenantSettings->show_tenant_switcher) {
+                        return '';
+                    }
+                } catch (\Throwable) {
                 }
 
                 return view('support::company-switcher', [
