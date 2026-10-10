@@ -1,0 +1,24 @@
+{
+    "name": "nuvis/fiji-payroll",
+    "description": "Fiji Payroll Localization and Tax/FNPF Engine for Nuvis ERP X",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nuvis ERP X Support",
+            "email": "support@nuvistechnologies.com.fj"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Nuvis\\FijiPayroll\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nuvis\\FijiPayroll\\FijiPayrollServiceProvider"
+            ]
+        }
+    }
+}

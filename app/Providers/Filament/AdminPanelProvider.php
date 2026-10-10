@@ -92,6 +92,7 @@ class AdminPanelProvider extends PanelProvider
                     ]),
                 SpatieTranslatablePlugin::make()
                     ->defaultLocales(array_keys(config('app.supported_locales'))),
+                \Nuvis\FijiPayroll\FijiPayrollPlugin::make(),
             ])
             ->globalSearch(provider: GlobalSearchProvider::class)
             ->middleware([
