@@ -2,7 +2,7 @@
 
 namespace Nuvis\FijiPayroll\Filament\Resources\PayrollRunResource\Pages;
 
-use Filament\Actions\DeleteAction;
+use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Nuvis\FijiPayroll\Filament\Resources\PayrollRunResource;
 
@@ -13,7 +13,8 @@ class EditPayrollRun extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            Actions\ViewAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }

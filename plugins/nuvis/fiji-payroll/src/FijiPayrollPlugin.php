@@ -5,6 +5,7 @@ namespace Nuvis\FijiPayroll;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Nuvis\FijiPayroll\Filament\Resources\PayrollRunResource;
+use Nuvis\FijiPayroll\Filament\Resources\SalarySlipResource;
 
 class FijiPayrollPlugin implements Plugin
 {
@@ -20,9 +21,11 @@ class FijiPayrollPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->resources([
-            PayrollRunResource::class,
-        ]);
+        $panel
+            ->resources([
+                PayrollRunResource::class,
+                SalarySlipResource::class,
+            ]);
     }
 
     public function boot(Panel $panel): void

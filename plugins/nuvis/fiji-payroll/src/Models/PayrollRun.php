@@ -2,71 +2,75 @@
 
 namespace Nuvis\FijiPayroll\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nuvis\FijiPayroll\Enums\PayFrequency;
 use Nuvis\FijiPayroll\Enums\PayrollStatus;
-use Webkul\Security\Models\User;
-use Webkul\Support\Models\Company;
-use Webkul\Support\Traits\BelongsToCompany;
 
 class PayrollRun extends Model
 {
-    use BelongsToCompany, HasFactory, SoftDeletes;
-
-    protected $table = 'fiji_payroll_runs';
+    use SoftDeletes;
 
     protected $fillable = [
+        'reference',
         'title',
         'period_start',
         'period_end',
-        'pay_frequency',
+        'pay_date',
+        'frequency',
         'status',
+        'employee_count',
         'total_gross',
-        'total_fnpf_employee',
-        'total_fnpf_employer',
+        'total_employee_fnpf',
+        'total_employer_fnpf',
         'total_paye',
         'total_net',
-        'company_id',
-        'creator_id',
+        'total_employer_cost',
+        'created_by',
+        'approved_by',
+        'approved_at',
+        'paid_at',
+        'notes',
     ];
 
     protected $casts = [
-        'period_start'  => 'date',
-        'period_end'    => 'date',
-        'pay_frequency' => PayFrequency::class,
-        'status'        => PayrollStatus::class,
+        'period_start' => 'date',
+        'period_end' => 'date',
+        'pay_date' => 'date',
+        'approved_at' => 'datetime',
+        'paid_at' => 'datetime',
+        'frequency' => PayFrequency::class,
+        'status' => PayrollStatus::class,
+        'total_gross' => 'decimal:2',
+        'total_employee_fnpf' => 'decimal:2',
+        'total_employer_fnpf' => 'decimal:2',
+        'total_paye' => 'decimal:2',
+        'total_net' => 'decimal:2',
+        'total_employer_cost' => 'decimal:2',
     ];
 
-    public function company(): BelongsTo
+    protected static function booted(): void
     {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'creator_id');
+        static::creating(function (PayrollRun $run) {
+            if (empty($run->reference)) {
+                $period = $run->period_start ? $run->period_start->format('Ym') : now()->format('Ym');
+                $count = static::whereYear('created_at', now()->year)->count() + 1;
+                $run->reference = sprintf('PR-%s-%04d', $period, $count);
+            }
+        });
     }
 
     public function salarySlips(): HasMany
     {
-        return $this->hasMany(SalarySlip::class, 'payroll_run_id');
+        return $this->hasMany(SalarySlip::class);
     }
 
-    public function recalculateTotals(): void
+    public function isEditable(): bool
     {
-        $slips = $this->salarySlips;
-
-        $this->update([
-            'total_gross'         => $slips->sum('gross_pay'),
-            'total_fnpf_employee' => $slips->sum('fnpf_employee'),
-            'total_fnpf_employer' => $slips->sum('fnpf_employer'),
-            'total_paye'          => $slips->sum('paye_tax'),
-            'total_net'           => $slips->sum('net_pay'),
-            'status'              => $slips->isNotEmpty() ? PayrollStatus::Calculated : PayrollStatus::Draft,
+        return in_array($this->status, [
+            PayrollStatus::Draft,
+            PayrollStatus::Calculated,
         ]);
     }
 }

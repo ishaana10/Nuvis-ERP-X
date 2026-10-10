@@ -8,20 +8,27 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('fiji_payroll_runs', function (Blueprint $table) {
+        Schema::create('payroll_runs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('reference')->unique(); // e.g. PR-2026-08
+            $table->string('title')->nullable();
             $table->date('period_start');
             $table->date('period_end');
-            $table->string('pay_frequency')->default('monthly');
-            $table->string('status')->default('draft');
-            $table->decimal('total_gross', 12, 2)->default(0);
-            $table->decimal('total_fnpf_employee', 12, 2)->default(0);
-            $table->decimal('total_fnpf_employer', 12, 2)->default(0);
-            $table->decimal('total_paye', 12, 2)->default(0);
-            $table->decimal('total_net', 12, 2)->default(0);
-            $table->foreignId('company_id')->nullable()->constrained('companies')->nullOnDelete();
-            $table->foreignId('creator_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->date('pay_date')->nullable();
+            $table->string('frequency')->default('monthly'); // monthly, fortnightly, weekly
+            $table->string('status')->default('draft'); // draft, processing, calculated, approved, paid, cancelled
+            $table->unsignedInteger('employee_count')->default(0);
+            $table->decimal('total_gross', 15, 2)->default(0);
+            $table->decimal('total_employee_fnpf', 15, 2)->default(0);
+            $table->decimal('total_employer_fnpf', 15, 2)->default(0);
+            $table->decimal('total_paye', 15, 2)->default(0);
+            $table->decimal('total_net', 15, 2)->default(0);
+            $table->decimal('total_employer_cost', 15, 2)->default(0);
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('approved_at')->nullable();
+            $table->timestamp('paid_at')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +36,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('fiji_payroll_runs');
+        Schema::dropIfExists('payroll_runs');
     }
 };

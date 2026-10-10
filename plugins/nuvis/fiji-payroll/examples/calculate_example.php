@@ -1,38 +1,58 @@
 <?php
 
-$autoload = __DIR__.'/../../../../vendor/autoload.php';
-if (! file_exists($autoload)) {
-    $autoload = __DIR__.'/../vendor/autoload.php';
-}
-require_once $autoload;
+/**
+ * Standalone example of the Fiji Payroll calculation classes.
+ * Run with: php examples/calculate_example.php
+ * (Requires the classes to be autoloaded or include the files manually)
+ */
 
-$bootstrap = __DIR__.'/../../../../bootstrap/app.php';
-if (file_exists($bootstrap)) {
-    $app = require_once $bootstrap;
-    $app->make(Kernel::class)->bootstrap();
+require_once __DIR__ . '/../src/Enums/PayFrequency.php';
+require_once __DIR__ . '/../src/Services/FnpfService.php';
+require_once __DIR__ . '/../src/Services/PayeCalculator.php';
+require_once __DIR__ . '/../src/Services/PayrollCalculator.php';
+
+// Mock config for standalone run
+if (! function_exists('config')) {
+    function config($key, $default = null) {
+        $config = [
+            'fiji-payroll.fnpf.employee_rate' => 0.08,
+            'fiji-payroll.fnpf.employer_rate' => 0.08,
+            'fiji-payroll.fnpf.include_allowances' => true,
+            'fiji-payroll.levies.enable_workcare' => true,
+            'fiji-payroll.levies.workcare_rate' => 0.01,
+            'fiji-payroll.levies.enable_training_levy' => false,
+        ];
+        return $config[$key] ?? $default;
+    }
 }
 
-use Illuminate\Contracts\Console\Kernel;
 use Nuvis\FijiPayroll\Enums\PayFrequency;
+use Nuvis\FijiPayroll\Services\FnpfService;
+use Nuvis\FijiPayroll\Services\PayeCalculator;
 use Nuvis\FijiPayroll\Services\PayrollCalculator;
 
-$calculator = app(PayrollCalculator::class);
+$calculator = new PayrollCalculator(
+    new FnpfService(),
+    new PayeCalculator()
+);
 
-$result = $calculator->calculate([
-    'basic'       => 3000,
-    'overtime'    => 250,
-    'allowances'  => 150,
+// Example 1: Simple monthly salary FJD 3,000
+echo "=== Example 1: Monthly Gross FJD 3,000 (Resident) ===\n";
+$result1 = $calculator->exampleMonthly(3000.00);
+print_r($result1);
+
+// Example 2: With overtime and allowances
+echo "\n=== Example 2: Basic 2,800 + OT 350 + Allowances 200 ===\n";
+$result2 = $calculator->calculate([
+    'basic' => 2800,
+    'overtime' => 350,
+    'allowances' => 200,
     'is_resident' => true,
-    'frequency'   => PayFrequency::Monthly,
+    'frequency' => PayFrequency::Monthly,
 ]);
+print_r($result2);
 
-echo "--- FIJI PAYROLL CALCULATION DEMO ---\n";
-echo 'Gross Pay:           $'.number_format($result['gross'], 2)."\n";
-echo 'FNPF Employee (8%):  $'.number_format($result['fnpf_employee'], 2)."\n";
-echo 'FNPF Employer (8%):  $'.number_format($result['fnpf_employer'], 2)."\n";
-echo 'Taxable Income:      $'.number_format($result['taxable_income'], 2)."\n";
-echo 'PAYE Tax:            $'.number_format($result['paye'], 2)."\n";
-echo 'Net Pay:             $'.number_format($result['net_pay'], 2)."\n";
-echo 'WorkCare Levy (1%):  $'.number_format($result['workcare_levy'], 2)."\n";
-echo 'Training Levy (1%):  $'.number_format($result['training_levy'], 2)."\n";
-echo 'Total Employer Cost: $'.number_format($result['total_employer_cost'], 2)."\n";
+// Example 3: Higher earner (to show progressive tax)
+echo "\n=== Example 3: Monthly Gross FJD 8,000 (higher tax band) ===\n";
+$result3 = $calculator->exampleMonthly(8000.00);
+print_r($result3);
